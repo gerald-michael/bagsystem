@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <!-- <servlet>
+    <servlet-name>AddServlet</servlet-name>
+    <servlet-class>com.gerald.AddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddServlet</servlet-name>
+    <url-pattern>/add</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SquareServlet</servlet-name>
+    <servlet-class>com.gerald.SquareServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SquareServlet</servlet-name>
+    <url-pattern>/sq</url-pattern>
+  </servlet-mapping> -->
+
+
+  <servlet>
+    <servlet-name>ServletContext</servlet-name>
+    <servlet-class>com.gerald.ServletContextLocal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletContext</servlet-name>
+    <url-pattern>/scont</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ServletConfig</servlet-name>
+    <servlet-class>com.gerald.ServletConfigLocal</servlet-class>
+    <init-param>
+      <param-name>name</param-name>
+      <param-value>Gerald</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletConfig</servlet-name>
+    <url-pattern>/sconf</url-pattern>
+  </servlet-mapping>
+
+  <context-param>
+    <param-name>name</param-name>
+    <param-value>Gerald</param-value>
+  </context-param>
+</web-app>
