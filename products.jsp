@@ -18,14 +18,12 @@
     <title>BagSystem</title>
   </head>
   <body>
-    <%
-        response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma","no-cache");
-        response.setHeader("Expires","0");  
-
-        if(session.getAttribute("username")==null)
-            response.sendRedirect("index.jsp?message="+"you must be logged in to access this page");
-    %>
-    <h1>header</h1>
+    <h1>Products</h1>
+    <form action="create" method="post">
+      <label for="name">Name</label><input type="text" name="name" id="name">
+      <label for="description">Description</label><input type="text" name="description" id="description">
+      <input type="submit" value="create">
+    </form>
+    <script type="text/javascript" src="js/materialize.js"></script>
   </body>
 </html>
