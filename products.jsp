@@ -34,6 +34,8 @@
         <div class="col s9">
             <!-- intro stock -->
             <div class="row teal ">
+
+            <%-- Stock Entry --%>
                 <div class="col card center s3">
                     <div class="row">
                         <div class="col s12 m6">
@@ -51,6 +53,26 @@
                         </div>
                       </div>
                 </div>
+              <%-- Stock list --%>
+                <div class="col card center s3">
+                    <div class="row">
+                        <div class="col s12 m6">
+                          <!-- <div class=" card"> -->
+                            <div class="card-image">
+                              <!-- <img src="images/sample-1.jpg"> -->
+                              <i class="large material-icons">view_list</i>
+                              <!-- <span class="card-title">Stock Status</span> -->
+                            
+                            </div>
+                            <div class="card-content">
+                              <p>Current Stock</p>
+                            </div>
+                          <!-- </div> -->
+                        </div>
+                      </div>
+                </div>
+
+                <%-- New Product --%>
 
                 <div class="col card center s3">
                     <div class="row">
@@ -70,6 +92,7 @@
                       </div>
                 </div>
 
+                <%-- Stock modify --%>
                 <div class="col card center s3">
                     <div class="row">
                         <div class="col s12 m6">
@@ -190,6 +213,18 @@
                     </div>
                 </div>
             </div>
+
+
+          <%-- Create product --%>
+              <div class=" row">
+                <h1>Products</h1>
+                <form action="create" method="post">
+                  <label for="name">Name</label><input type="text" name="name" id="name">
+                  <label for="description">Description</label><input type="text" name="description" id="description">
+                  <input type="submit" value="create">
+                </form>
+              </div>
+
 
             <!-- Current stock -->
             <table class="centered highlight responsive-table striped">
