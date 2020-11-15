@@ -18,7 +18,29 @@
     <title>BagSystem</title>
   </head>
   <body>
-    <h1>Home</h1>
+
+   <div class="row middle">
+      <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Login</span>
+
+          <form action="login" method="post">
+            <label for="username">Username</label><input type="text" name="username" id="username">
+            <label for="password">Password</label><input type="password" name="password" id="password">
+
+    
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right">login</i>
+            </button>
+          </form>
+
+        </div>
+      
+    </div>
+    <div>
+  </div>
+
     <%
       if(request.getParameter("message")!= null){
         out.println(request.getParameter("message"));
