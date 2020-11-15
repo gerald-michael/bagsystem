@@ -27,10 +27,10 @@
         <div class="col s9">
             <!-- intro stock -->
             <div class="row teal ">
-                <div class="col s4">
+                <div class="col card center s3">
                     <div class="row">
                         <div class="col s12 m6">
-                          <div class="card">
+                          <!-- <div class="card"> -->
                             <div class="card-image">
                               <!-- <img src="images/sample-1.jpg"> -->
                               <i class="large material-icons">shop</i>
@@ -38,17 +38,17 @@
                               
                             </div>
                             <div class="card-content">
-                              <p>New stock entry</p>
+                              <p>New stock </p>
                             </div>
-                          </div>
+                          <!-- </div> -->
                         </div>
                       </div>
                 </div>
 
-                <div class="col s4">
+                <div class="col card center s3">
                     <div class="row">
                         <div class="col s12 m6">
-                          <div class="card">
+                          <!-- <div class=" card"> -->
                             <div class="card-image">
                               <!-- <img src="images/sample-1.jpg"> -->
                               <i class="large material-icons">view_list</i>
@@ -58,15 +58,15 @@
                             <div class="card-content">
                               <p>Current Stock</p>
                             </div>
-                          </div>
+                          <!-- </div> -->
                         </div>
                       </div>
                 </div>
 
-                <div class="col s4">
+                <div class="col card center s3">
                     <div class="row">
                         <div class="col s12 m6">
-                          <div class="card">
+                          <div class="blue">
                             <div class="card-image">
                               <!-- <img src="images/sample-1.jpg"> -->
                               <i class="large material-icons">view_comfy</i>
@@ -98,44 +98,44 @@
                         <div id="stock" class="row">
                             <!-- Brand -->
                             <div class="input-field col s2">
-                                <select >
+                                <select class="browser-default">
                                 <option value="" disabled selected>Choose Brand</option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                                 </select>
-                                <label>Brand</label>
+                               
                             </div>
                             <!-- Color -->
                             <div class="input-field col s2">
-                                <select>
+                                <select class="browser-default">
                                 <option value="" disabled selected>Choose color</option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                                 </select>
-                                <label>Color</label>
+                             
                             </div>
                             <!-- Size -->
                             <div class="input-field col s2">
-                                <select>
-                                <option value="" disabled selected>Choose color</option>
+                                <select class="browser-default">
+                                <option value="" disabled selected>Choose Size</option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                                 </select>
-                                <label>Color</label>
+                                
                             </div>
                             
                             <!-- Type -->
                             <div class="input-field col s2">
-                                <select >
-                                <option value="" selected>Choose color</option>
+                                <select  class="browser-default">
+                                <option value="" selected>Choose Type</option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                                 </select>
-                                <label>Type</label>
+                                
                             </div>
                             <!-- Cost -->
                             <div class="input-field col s2">
@@ -156,11 +156,7 @@
                             <a id="add_stock_item" class="btn-floating btn-medium waves-effect waves-light red" onclick="bing()"><i class="material-icons">add</i></a>
                             <!-- <span class="card  large s4">Add stock</span> -->
                         </div>
-                        <div class="col s4">
-                            <a class="waves-effect waves-light btn"><i class="material-icons right">insert_drive_file</i>import</a>
-                            <!-- <i class="material-icons right">import</i> -->
-                            <!-- <span class="card  large s4">Add stock</span> -->
-                        </div>
+                      
                         <div class="col s4">
                             <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                                 <i class="material-icons right">upload</i>
@@ -173,6 +169,22 @@
             </div>
             <!-- form end -->
 
+            <!-- New Stock Summary -->
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card">
+                      <div class="card-title">
+                          Just added Stock
+                        <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> -->
+                      </div>
+                      <div class="card-content">
+                        <p>View details</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current stock -->
             <table class="centered highlight responsive-table striped">
                 <thead>
                   <tr>
