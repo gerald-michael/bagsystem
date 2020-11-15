@@ -18,8 +18,10 @@
     <title>BagSystem</title>
   </head>
   <body>
-
-   <div class="row middle">
+    <%-- <nav><nav> --%>
+    <div class="row"></div>
+    
+   <div class="row " style="padding-left:30%;padding-top:15%">
       <div class="col s12 m6">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
