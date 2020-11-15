@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html" errorPage="error.jsp"%>
+<%@ page language="java" contentType="text/html" isErrorPage="true"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,14 +18,11 @@
     <title>BagSystem</title>
   </head>
   <body>
-    <%
-        response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma","no-cache");
-        response.setHeader("Expires","0");  
-
-        if(session.getAttribute("username")==null)
-            response.sendRedirect("index.jsp?message="+"you must be logged in to access this page");
+    <h1>Error</h1>
+    <%-- exception is an object that only works in the error page --%>
+    <%=
+        exception.getMessage();
     %>
-    <h1>header</h1>
+    <script type="text/javascript" src="js/materialize.js"></script>
   </body>
 </html>

@@ -43,8 +43,6 @@
     <div>
   </div>
 
-
-
     <%
       if(request.getParameter("message")!= null){
         out.println(request.getParameter("message"));

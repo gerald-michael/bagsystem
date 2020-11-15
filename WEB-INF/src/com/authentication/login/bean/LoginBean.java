@@ -1,4 +1,4 @@
-package com.login.bean;
+package com.authentication.login.bean;
 
 import java.io.Serializable;
 
