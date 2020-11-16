@@ -27,5 +27,3 @@
             response.sendRedirect("index.jsp?message="+"you must be logged in to access this page");
     %>
     <h1>header</h1>
-  </body>
-</html>

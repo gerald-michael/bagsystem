@@ -3,23 +3,10 @@
     PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
-  <!-- <servlet>
-    <servlet-name>AddServlet</servlet-name>
-    <servlet-class>com.gerald.AddServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddServlet</servlet-name>
-    <url-pattern>/add</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>SquareServlet</servlet-name>
-    <servlet-class>com.gerald.SquareServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SquareServlet</servlet-name>
-    <url-pattern>/sq</url-pattern>
-  </servlet-mapping> -->
 
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 
   <servlet>
     <servlet-name>ServletContext</servlet-name>
@@ -47,4 +34,18 @@
     <param-name>name</param-name>
     <param-value>Gerald</param-value>
   </context-param>
+
+  <filter>
+    <filter-name>IsAuthenticated</filter-name>
+    <filter-class>com.authentication.filters.IsAuthenticated</filter-class>
+    <init-param>
+      <param-name>excludes</param-name>
+      <param-value>auth.jsp,login,signup,logout</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>IsAuthenticated</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

@@ -1,7 +1,7 @@
 package com.authentication.login.web;
 
-import com.authentication.login.dao.*;
-import com.authentication.login.bean.*;
+import com.authentication.bean.User;
+import com.authentication.dao.*;
 
 import java.io.IOException;
 
@@ -14,33 +14,27 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private LoginDao loginDao;
-
-    public void init() {
-        loginDao = new LoginDao();
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        LoginBean loginBean = new LoginBean();
-        loginBean.setUsername(username);
-        loginBean.setPassword(password);
+        
+        User user = new User();
+        AuthenticationDao authenticationDao = new AuthenticationDao();
+        user.setUsername(username);
+        user.setPassword(password);
 
         try {
-            if (loginDao.validate(loginBean)) {
-                //HttpSession session = request.getSession();
-                // session.setAttribute("username",username);
-                response.sendRedirect("loginsuccess.jsp");
+            if (authenticationDao.login(user)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("username",username);
+                response.sendRedirect("index.jsp");
             } else {
                 HttpSession session = request.getSession();
-                //session.setAttribute("user", username);
-                //response.sendRedirect("login.jsp");
+                response.sendRedirect("auth.jsp");
             }
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

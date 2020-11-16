@@ -1,23 +1,4 @@
-<%@ page language="java" contentType="text/html" errorPage="error.jsp"%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="css/materialize.css"
-      media="screen,projection"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-
-    <title>BagSystem</title>
-  </head>
-  <body>
+<%@ include file="header.jsp" %>
     <%-- <h1>Products</h1>
     <form action="create" method="post">
       <label for="name">Name</label><input type="text" name="name" id="name">
@@ -38,7 +19,7 @@
             <!-- form begin -->
             <div class="row">
                 <h5>Stock entry</h5>
-                <form action="" method="post" >
+                <form action="create" method="post" >
                     <div class="row">
                         <div class="col s2">Brand</div>
                         <div class="col s2">Color</div>
@@ -297,5 +278,4 @@
      
     </div>
     <script type="text/javascript" src="js/materialize.js"></script>
-  </body>
-</html>
+<%@ include file="footer.jsp" %>
