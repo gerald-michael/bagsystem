@@ -1,2 +1,4 @@
 </body>
+<%-- <%=message%>
+<%=error%> --%>
 </html>
