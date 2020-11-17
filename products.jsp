@@ -277,5 +277,6 @@
 
      
     </div>
+    <script type="text/javascript" src="js/stock.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
 <%@ include file="footer.jsp" %>

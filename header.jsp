@@ -16,8 +16,11 @@
     />
 
     <title>BagSystem</title>
+     <noscript>
+        site needs javascript to run
+    </noscript>
   </head>
-  <body>
+  <body onload="get_user()">
     <%
         response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
         response.setHeader("Pragma","no-cache");
@@ -26,4 +29,37 @@
         if(session.getAttribute("username")==null)
             response.sendRedirect("index.jsp?message="+"you must be logged in to access this page");
     %>
-    <h1>header</h1>
+
+    <%-- header --%>
+      <header class="grey center lighten5">
+        <div class="row">
+            <div class="col s3">
+                <i class="material-icons large">store</i>
+                <div id="toggle_menu" class="btn waves-effect waves-light"><i class="material-icons medium">menu</i></div>
+            </div>
+            <div class="col s9">
+                <div class="row">
+                    <div class="col s12"><span class="flow-text">Bag invetory System</span></div>
+                    <div class="col s6 offset-s6 right"><span class="flow-text">
+                        <i class="material-icons">notifications</i>
+                        <i class="material-icons">mail</i>
+                        <i class="material-icons">check_out</i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <%-- navbar --%>
+
+    <section class="row" style="display: relative;padding-top:0">
+      <!-- Aside navbar of menu -->
+      <div class="col grey darken-2 s3 center">
+          <ul id="menu_priv">
+              
+          </ul>
+      </div>
+
+      <div class="col s9">
+      
