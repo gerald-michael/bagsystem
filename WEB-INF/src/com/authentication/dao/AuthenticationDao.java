@@ -117,6 +117,9 @@ public class AuthenticationDao {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
                     close();
+                    if(id==1){
+                        initDatabase();
+                    }
                     return id;
                 } else {
                     throw new SQLException("Couldn't get new userid");
@@ -189,7 +192,7 @@ public class AuthenticationDao {
                 createNewPermission.setString(1, permission.getName());
                 createNewPermission.setInt(2, permission.getCreatedBy());
                 int affectedRows = createNewPermission.executeUpdate();
-                if (affectedRows == 1) {
+                if (affectedRows != 1) {
                     throw new SQLException("Failed to created group");
                 }
                 ResultSet generatedKeys = createNewPermission.getGeneratedKeys();
@@ -222,7 +225,7 @@ public class AuthenticationDao {
                 createNewGroup.setString(1, group.getName());
                 createNewGroup.setInt(2, group.getCreatedBy());
                 int affectedRows = createNewGroup.executeUpdate();
-                if (affectedRows == 1) {
+                if (affectedRows != 1) {
                     throw new SQLException("Failed to created group");
                 }
                 ResultSet generatedKeys = createNewGroup.getGeneratedKeys();
@@ -329,7 +332,7 @@ public class AuthenticationDao {
         }
     }
 
-    public boolean deleteGroupPermissionsFunc(GroupPermissions groupPermissions){
+    public boolean deleteGroupPermissions(GroupPermissions groupPermissions){
         try {
             open();
             PreparedStatement deleteGroupPermissions = conn.prepareStatement(DELETE_PERMISSION_TO_GROUP);
@@ -342,5 +345,24 @@ public class AuthenticationDao {
             close();
             return  false;
         }
+    }
+
+    private void initDatabase(){
+        Group group = new Group();
+        group.setName("admin");
+        group.setCreatedBy(1);
+        int groupId = this.createGroup(group);
+        Permission permission = new Permission();
+        permission.setName("all");
+        permission.setCreatedBy(1);
+        int permissionId = this.createPermission(permission);
+        UserGroups userGroups = new UserGroups();
+        userGroups.setGroupId(groupId);
+        userGroups.setUserId(1);
+        int user_group_id = this.assignUsersToGroups(userGroups);
+        GroupPermissions groupPermissions = new GroupPermissions();
+        groupPermissions.setPermissionId(permissionId);
+        groupPermissions.setGroupId(groupId);
+        int group_permission_id = this.assignPermissionsToGroups(groupPermissions);
     }
 }
