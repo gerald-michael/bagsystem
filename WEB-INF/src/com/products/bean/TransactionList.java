@@ -2,15 +2,41 @@ package com.products.bean;
 
 import java.util.Date;
 
-public class StockList {
+public class TransactionList {
     private String product_name;
-    private String product_description;
     private int quantity;
     private double buying_price;
+    private double selling_price;
     private String color_name;
     private String size_name;
+    private String added_by;
+    private String updated_by;
     private Date date_updated;
     private Date date_created;
+
+    public double getSelling_price() {
+        return selling_price;
+    }
+
+    public void setSelling_price(double selling_price) {
+        this.selling_price = selling_price;
+    }
+
+    public String getAdded_by() {
+        return added_by;
+    }
+
+    public void setAdded_by(String added_by) {
+        this.added_by = added_by;
+    }
+
+    public String getUpdated_by() {
+        return updated_by;
+    }
+
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
+    }
 
     public String getProduct_name() {
         return product_name;
@@ -18,14 +44,6 @@ public class StockList {
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
-    }
-
-    public String getProduct_description() {
-        return product_description;
-    }
-
-    public void setProduct_description(String product_description) {
-        this.product_description = product_description;
     }
 
     public int getQuantity() {

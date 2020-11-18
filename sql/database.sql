@@ -101,3 +101,5 @@ create table transactions(
 )engine= InnoDB default charset = utf8mb4 collate= utf8mb4_0900_as_cs; 
 create view stock_list as select products.name as product_name, products.description as product_description,stock.color as color, stock.size as size, stock.quantity as quantity, stock.buying_price as buying_price, stock.date_updated
 as date_updated,stock.date_created as date_created from stock inner join products on stock.product_id = products.id;
+
+create view transaction_list as select product.name as product_name, transactions.quantity as quantity, transactions.buying_price as buying_price, transactions.selling_price as selling_price, transactions.added_by as added_by, transactions.updated_by as updated_by, transactions.date_created as date_created, transactions.date_updated as date_updated

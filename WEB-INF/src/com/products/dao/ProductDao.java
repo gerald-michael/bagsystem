@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.authentication.bean.User;
+import com.authentication.dao.AuthenticationDao;
 import com.products.bean.*;
 
 public class ProductDao {
@@ -61,6 +63,18 @@ public class ProductDao {
     public static final String COLUMN_STOCK_LIST_UPDATED = "date_updated";
     public static final String COLUMN_STOCK_LIST_DATE_CREATED = "date_created";
 
+    // transaction list view
+    public static final String VIEW_TRANSACTION_LIST = "transaction_list";
+    public static final String COLUMN_TRANSACTION_LIST_PRODUCT_NAME = "product_name";
+    public static final String COLUMN_TRANSACTION_LIST_QUANTITY = "quantity";
+    public static final String COLUMN_TRANSACTION_LIST_BUYING_PRICE = "buying_price";
+    public static final String COLUMN_TRANSACTION_LIST_SELLING_PRICE = "selling_price";
+    public static final String COLUMN_TRANSACTION_LIST_COLOR_NAME = "color";
+    public static final String COLUMN_TRANSACTION_LIST_SIZE_NAME = "size";
+    public static final String COLUMN_TRANSACTION_LIST_ADDED_BY = "added_by";
+    public static final String COLUMN_TRANSACTION_LIST_UPDATED_BY = "updated_by";
+    public static final String COLUMN_TRANSACTION_LIST_UPDATED = "date_updated";
+    public static final String COLUMN_TRANSACTION_LIST_DATE_CREATED = "date_created";
     // sort order
 
     public static final int ORDER_BY_NONE = 1;
@@ -76,6 +90,7 @@ public class ProductDao {
     public static final String UPDATE_PRODUCT = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_PRODUCT_NAME + " = ? ," + COLUMN_PRODUCT_DESCRIPTION + "=? ,"+ COLUMN_PRODUCT_UPDATED_BY + "=? ,"+COLUMN_PRODUCT_IMAGE +  " = ? WHERE " + COLUMN_PRODUCT_ID + " = ?";
     public static final String GET_STOCK = "SELECT * FROM "+ TABLE_STOCK + " WHERE " + COLUMN_STOCK_ID + " =?";
     public static final String UPDATE_STOCK_QUANTITY = "UPDATE " + TABLE_STOCK + " SET " + COLUMN_STOCK_QUANTITY + " =? WHERE " + COLUMN_STOCK_ID + " =?";
+    public static final String GET_TRANSACTIONS = "SELECT * FROM " + VIEW_TRANSACTION_LIST;
     private Connection conn;
     //prepared statements for products
     PreparedStatement checkProductExists;
@@ -407,6 +422,48 @@ public class ProductDao {
             }catch (SQLException ee){
                 System.out.println("Error: "+ ee.getMessage());
             }
+        }
+    }
+
+    public List<TransactionList> getTransactions(){
+        try{
+            open();
+            PreparedStatement statement = conn.prepareStatement(GET_TRANSACTIONS);
+            ResultSet results = statement.executeQuery();
+            List<TransactionList> transactions = new ArrayList<>();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            User user = new User();
+            AuthenticationDao authenticationDao = new AuthenticationDao();
+            while (results.next()){
+                TransactionList transaction = new TransactionList();
+                transaction.setProduct_name(results.getString(COLUMN_TRANSACTION_LIST_PRODUCT_NAME));
+                transaction.setQuantity(results.getInt(COLUMN_TRANSACTION_LIST_QUANTITY));
+                transaction.setBuying_price(results.getDouble(COLUMN_TRANSACTION_LIST_BUYING_PRICE));
+                transaction.setSelling_price(results.getDouble(COLUMN_TRANSACTION_LIST_SELLING_PRICE));
+                transaction.setColor_name(results.getString(COLUMN_TRANSACTION_LIST_COLOR_NAME));
+                transaction.setSize_name(results.getString(COLUMN_TRANSACTION_LIST_SIZE_NAME));
+                transaction.setDate_created(format.parse(results.getString(COLUMN_TRANSACTION_LIST_DATE_CREATED)));
+                if(results.getString(COLUMN_TRANSACTION_LIST_UPDATED) != null){
+                    transaction.setDate_updated(format.parse(results.getString(COLUMN_TRANSACTION_LIST_UPDATED)));
+                }
+                user.setId(results.getInt(COLUMN_TRANSACTION_LIST_ADDED_BY));
+                user = authenticationDao.getUserWithId(user);
+                transaction.setAdded_by(user.getUsername());
+                if(results.getInt(COLUMN_TRANSACTION_LIST_UPDATED_BY) != 0){
+                    user.setId(results.getInt(COLUMN_TRANSACTION_LIST_ADDED_BY));
+                    user = authenticationDao.getUserWithId(user);
+                    transaction.setUpdated_by(user.getUsername());
+                }else{
+                    transaction.setUpdated_by("never");
+                }
+                transactions.add(transaction);
+            }
+            close();
+            return transactions;
+        }catch (Exception e){
+            System.out.println("error: "+ e.getMessage());
+            close();
+            return null;
         }
     }
 }
