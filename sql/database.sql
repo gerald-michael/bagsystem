@@ -72,6 +72,8 @@ create table `stock` (
     `product_id` integer not null,
 	`quantity` integer not null,
     `buying_price` float not null,
+    `color` varchar(20) not null ,
+    `size` varchar(20) not null,
 	`added_by` int not null,
 	`updated_by` int default null,
     `date_updated` datetime on update current_timestamp,
@@ -82,43 +84,9 @@ create table `stock` (
     foreign key(`product_id`) references products(`id`)
 )engine= InnoDB default charset = utf8mb4 collate= utf8mb4_0900_as_cs;
 
-create table `colors` (
- 	`id` integer not null auto_increment,
-    `name`  varchar(20) not null,	
-    `quantity` integer not null,
-    `stock_id` integer not null,
-	`image` varchar(255) default null,
-	`added_by` int not null,
-	`updated_by` int default null,
-    `date_updated` datetime on update current_timestamp,
-    `date_created` datetime default NOW(),
-    primary key(`id`),
-	foreign key(`added_by`) references `users`(`id`),
-	foreign key(`updated_by`) references `users`(`id`),
-    foreign key(`stock_id`) references stock(`id`)
-)engine= InnoDB default charset = utf8mb4 collate= utf8mb4_0900_as_cs;
-
-create table `sizes` (
- 	`id` integer not null auto_increment,
-    `name`  varchar(20) not null,
-    `quantity` integer not null,
-    `stock_id` integer not null,
-	`image` varchar(255) default null,
-	`added_by` int not null,
-	`updated_by` int default null,
-    `date_updated` datetime on update current_timestamp,
-    `date_created` datetime default NOW(),
-    primary key(`id`),
-	foreign key(`added_by`) references `users`(`id`),
-	foreign key(`updated_by`) references `users`(`id`),
-    foreign key(`stock_id`) references stock(`id`)
-)engine= InnoDB default charset = utf8mb4 collate= utf8mb4_0900_as_cs;
-
 create table transactions(
 	`id` integer not null auto_increment,
 	`stock_id` integer not null,
-    `color_id` int not null,
-    `size_id` int not null,
 	`quantity` integer default null,
     `buying_price` float not null,
     `selling_price` float not null,
@@ -131,5 +99,5 @@ create table transactions(
 	foreign key(`updated_by`) references `users`(`id`),
 	foreign key(`stock_id`) references stock(`id`)
 )engine= InnoDB default charset = utf8mb4 collate= utf8mb4_0900_as_cs; 
-
-create view stock_list as select products.name as product_name, products.description as product_description, stock.quantity as quantity, stock.buying_price as buying_price, colors.name as color_name, colors.quantity as color_quantity, sizes.name as size_name, sizes.quantity as size_quantity, stock.date_updated as date_updated,stock.date_created as date_created from stock inner join products on stock.product_id = products.id inner join colors on colors.stock_id = stock.id inner join sizes on sizes.stock_id = stock.id;
+create view stock_list as select products.name as product_name, products.description as product_description,stock.color as color, stock.size as size, stock.quantity as quantity, stock.buying_price as buying_price, stock.date_updated
+as date_updated,stock.date_created as date_created from stock inner join products on stock.product_id = products.id;

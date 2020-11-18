@@ -70,6 +70,7 @@ public class AuthenticationDao {
     public static final String CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS = "SELECT * FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + " = ?";
     public static final String DELETE_USER_GROUP = "DELETE FROM " + TABLE_USER_GROUPS + " WHERE " + COLUMN_USER_GROUPS_ID + " = ?";
     public static final String DELETE_PERMISSION_TO_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_ID + " = ?";
+    public static final String GET_USER = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME + "=?";
     private Connection conn;
 
     public boolean open() throws SQLException, ClassNotFoundException {
@@ -364,5 +365,26 @@ public class AuthenticationDao {
         groupPermissions.setPermissionId(permissionId);
         groupPermissions.setGroupId(groupId);
         int group_permission_id = this.assignPermissionsToGroups(groupPermissions);
+    }
+
+    public User getUser(User user){
+        try{
+            open();
+            PreparedStatement statement = conn.prepareStatement(GET_USER);
+            statement.setString(1,user.getUsername());
+
+            ResultSet results = statement.executeQuery();
+            while(results.next()){
+                user.setId(results.getInt(COLUMN_USERS_ID));
+                user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
+                user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
+                user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
+            }
+            return user;
+        }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
     }
 }

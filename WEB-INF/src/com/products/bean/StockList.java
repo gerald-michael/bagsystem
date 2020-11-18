@@ -1,6 +1,6 @@
 package com.products.bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class StockList {
     private String product_name;
@@ -8,9 +8,7 @@ public class StockList {
     private int quantity;
     private double buying_price;
     private String color_name;
-    private int color_quantity;
     private String size_name;
-    private int size_quantity;
     private Date date_updated;
     private Date date_created;
 
@@ -54,28 +52,12 @@ public class StockList {
         this.color_name = color_name;
     }
 
-    public int getColor_quantity() {
-        return color_quantity;
-    }
-
-    public void setColor_quantity(int color_quantity) {
-        this.color_quantity = color_quantity;
-    }
-
     public String getSize_name() {
         return size_name;
     }
 
     public void setSize_name(String size_name) {
         this.size_name = size_name;
-    }
-
-    public int getSize_quantity() {
-        return size_quantity;
-    }
-
-    public void setSize_quantity(int size_quantity) {
-        this.size_quantity = size_quantity;
     }
 
     public Date getDate_updated() {

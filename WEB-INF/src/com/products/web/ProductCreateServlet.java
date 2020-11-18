@@ -3,6 +3,7 @@ package com.products.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.io.File;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,36 +11,77 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
+import com.authentication.bean.User;
+import com.authentication.dao.AuthenticationDao;
 import com.products.bean.*;
 import com.products.dao.*;
 
 @WebServlet("/create")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)
 public class ProductCreateServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private ProductDao productDao;
-
-    public void init() {
-        productDao = new ProductDao();
-    }
+    public static final String UPLOAD_DIR = "images";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
+        Part part = request.getPart("image");
+        String fileName = extractFileName(part);
+        String applicationPath = getServletContext().getRealPath("");
+        String uploadPath = applicationPath + UPLOAD_DIR;
 
-        PrintWriter out = response.getWriter();
-        // Product product = new Product(name, description);
-        try {
-            // List<Product> result = productDao.queryProducts(productDao.ORDER_BY_NONE);
-            // out.println(result.size());
-            int count = productDao.getCount(productDao.TABLE_PRODUCTS);
-            out.println("total records: " + count);
-
-            // List <StockList> stockLists = productDao.queryStockListView();
-            // out.println(stockLists.size());
-        } catch (Exception e) {
-            out.println("error" + e.getMessage());
+        File fileUploadDirectory = new File(uploadPath);
+        if (!fileUploadDirectory.exists()) {
+            fileUploadDirectory.mkdirs();
         }
+        PrintWriter out = response.getWriter();
+        String savePath = uploadPath + File.separator + fileName;
+        out.println("savePath: " + savePath);
+        out.println(uploadPath);
+        String sRootPath = new File(savePath).getAbsolutePath();
+        out.println("sRootPath: " + sRootPath);
+        part.write(savePath + File.separator);
+        File fileSaveDir1 = new File(savePath);
+        // HttpSession session = request.getSession();
+        // User user = new User();
+        // user.setUsername(session.getAttribute("username").toString());
+        // AuthenticationDao authenticationDao = new AuthenticationDao();
+        // user = authenticationDao.getUser(user);
+
+        // Product product = new Product();
+        // product.setName(name);
+        // product.setDescription(description);
+        // product.setImageUri("pic.jpg");
+        // product.setAdded_by(user.getId());
+
+        // ProductDao productDao = new ProductDao();
+        // try {
+        // int id = productDao.insertProduct(product);
+        // if (id != -1) {
+        // response.sendRedirect("products.jsp?message=" + "product created
+        // successfully");
+        // } else {
+        // response.sendRedirect("products.jsp?error=" + "failed to create product");
+
+        // }
+        // } catch (Exception e) {
+        // response.sendRedirect("products.jsp?error=" + "failed to create product");
+        // }
+    }
+
+    private String extractFileName(Part part) {// This method will print the file name.
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
     }
 }
