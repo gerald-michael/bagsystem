@@ -8,9 +8,7 @@
 
 
     <div class="row">
-        <div class="col s3">
-<!-- Aside navbar of menu -->
-        </div>
+        <%@ include file="sidebar.jsp"%>
 
         <div class="col s9">
             <!-- intro stock -->
@@ -122,9 +120,10 @@
           <%-- Create product --%>
               <div class=" row">
                 <h1>Products</h1>
-                <form action="create" method="post">
+                <form action="create" method="post" enctype="multipart/form-data">
                   <label for="name">Name</label><input type="text" name="name" id="name">
                   <label for="description">Description</label><input type="text" name="description" id="description">
+                  <label for="image">Product Image</label><input type="file" name="image" id="image">
                   <input type="submit" value="create">
                 </form>
               </div>

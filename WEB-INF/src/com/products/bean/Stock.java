@@ -7,8 +7,44 @@ public class Stock{
     private int product_id;
     private int quantity;
     private double buying_price;
+    private String color;
+    private String size;
+    private int added_by;
+    private int updated_by;
     private Date date_updated;
     private Date date_created;
+
+    public int getAdded_by() {
+        return added_by;
+    }
+
+    public void setAdded_by(int added_by) {
+        this.added_by = added_by;
+    }
+
+    public int getUpdated_by() {
+        return updated_by;
+    }
+
+    public void setUpdated_by(int updated_by) {
+        this.updated_by = updated_by;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     public int getId() {
         return id;

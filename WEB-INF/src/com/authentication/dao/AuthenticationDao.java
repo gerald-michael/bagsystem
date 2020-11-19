@@ -70,6 +70,8 @@ public class AuthenticationDao {
     public static final String CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS = "SELECT * FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + " = ?";
     public static final String DELETE_USER_GROUP = "DELETE FROM " + TABLE_USER_GROUPS + " WHERE " + COLUMN_USER_GROUPS_ID + " = ?";
     public static final String DELETE_PERMISSION_TO_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_ID + " = ?";
+    public static final String GET_USER = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME + "=?";
+    public static final String GET_USER_WITH_ID = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_ID + "=?";
     private Connection conn;
 
     public boolean open() throws SQLException, ClassNotFoundException {
@@ -117,6 +119,9 @@ public class AuthenticationDao {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
                     close();
+                    if(id==1){
+                        initDatabase();
+                    }
                     return id;
                 } else {
                     throw new SQLException("Couldn't get new userid");
@@ -189,7 +194,7 @@ public class AuthenticationDao {
                 createNewPermission.setString(1, permission.getName());
                 createNewPermission.setInt(2, permission.getCreatedBy());
                 int affectedRows = createNewPermission.executeUpdate();
-                if (affectedRows == 1) {
+                if (affectedRows != 1) {
                     throw new SQLException("Failed to created group");
                 }
                 ResultSet generatedKeys = createNewPermission.getGeneratedKeys();
@@ -222,7 +227,7 @@ public class AuthenticationDao {
                 createNewGroup.setString(1, group.getName());
                 createNewGroup.setInt(2, group.getCreatedBy());
                 int affectedRows = createNewGroup.executeUpdate();
-                if (affectedRows == 1) {
+                if (affectedRows != 1) {
                     throw new SQLException("Failed to created group");
                 }
                 ResultSet generatedKeys = createNewGroup.getGeneratedKeys();
@@ -329,7 +334,7 @@ public class AuthenticationDao {
         }
     }
 
-    public boolean deleteGroupPermissionsFunc(GroupPermissions groupPermissions){
+    public boolean deleteGroupPermissions(GroupPermissions groupPermissions){
         try {
             open();
             PreparedStatement deleteGroupPermissions = conn.prepareStatement(DELETE_PERMISSION_TO_GROUP);
@@ -341,6 +346,67 @@ public class AuthenticationDao {
             System.out.println("Error: " + e.getMessage());
             close();
             return  false;
+        }
+    }
+
+    private void initDatabase(){
+        Group group = new Group();
+        group.setName("admin");
+        group.setCreatedBy(1);
+        int groupId = this.createGroup(group);
+        Permission permission = new Permission();
+        permission.setName("all");
+        permission.setCreatedBy(1);
+        int permissionId = this.createPermission(permission);
+        UserGroups userGroups = new UserGroups();
+        userGroups.setGroupId(groupId);
+        userGroups.setUserId(1);
+        int user_group_id = this.assignUsersToGroups(userGroups);
+        GroupPermissions groupPermissions = new GroupPermissions();
+        groupPermissions.setPermissionId(permissionId);
+        groupPermissions.setGroupId(groupId);
+        int group_permission_id = this.assignPermissionsToGroups(groupPermissions);
+    }
+
+    public User getUser(User user){
+        try{
+            open();
+            PreparedStatement statement = conn.prepareStatement(GET_USER);
+            statement.setString(1,user.getUsername());
+
+            ResultSet results = statement.executeQuery();
+            while(results.next()){
+                user.setId(results.getInt(COLUMN_USERS_ID));
+                user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
+                user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
+                user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
+            }
+            return user;
+        }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+    public User getUserWithId(User user){
+        try{
+            open();
+            PreparedStatement statement = conn.prepareStatement(GET_USER_WITH_ID);
+            statement.setInt(1,user.getId());
+
+            ResultSet results = statement.executeQuery();
+            while(results.next()){
+                user.setId(results.getInt(COLUMN_USERS_ID));
+                user.setUsername(results.getString(COLUMN_USERS_USERNAME));
+                user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
+                user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
+                user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
+            }
+            return user;
+        }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
         }
     }
 }

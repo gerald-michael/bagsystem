@@ -8,25 +8,25 @@ public class Transaction {
     private int quantity;
     private double buying_price;
     private double selling_price;
-    private int color_id;
-    private int size_id;
+    private int added_by;
+    private int updated_by;
     private Date date_updated;
     private Date date_created;
 
-    public int getColor_id() {
-        return color_id;
+    public int getAdded_by() {
+        return added_by;
     }
 
-    public void setColor_id(int color_id) {
-        this.color_id = color_id;
+    public void setAdded_by(int added_by) {
+        this.added_by = added_by;
     }
 
-    public int getSize_id() {
-        return size_id;
+    public int getUpdated_by() {
+        return updated_by;
     }
 
-    public void setSize_id(int size_id) {
-        this.size_id = size_id;
+    public void setUpdated_by(int updated_by) {
+        this.updated_by = updated_by;
     }
 
     public int getId() {

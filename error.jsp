@@ -21,7 +21,7 @@
     <h1>Error</h1>
     <%-- exception is an object that only works in the error page --%>
     <%=
-        exception.getMessage();
+        exception.getMessage()
     %>
     <script type="text/javascript" src="js/materialize.js"></script>
   </body>
