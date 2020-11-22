@@ -2,15 +2,21 @@
 <%@ page import="com.products.dao.ProductDao,com.products.bean.StockList,java.util.List,java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="nav.jsp" %>
-<%-- <%@ include file="sidebar.jsp"%> --%>
+<%@ include file="sidebar.jsp"%>
   <div class="row">
     <div class="col s12 m4"> 
         <div class="card-panel">
             <h4 class="header2">New Stock</h4>
+            <br/>
             <form action="createstock" method="post">
                 <div class="input-field">
-                    <input type="text" name="product" id="product">
-                    <label for="product"> Product </label>
+                    <select class="icons">
+                    <option value="" disabled selected>Choose your product</option>
+                    <option value="" data-icon="images/sample-1.jpg" class="left">example 1</option>
+                    <option value="" data-icon="images/office.jpg" class="left">example 2</option>
+                    <option value="" data-icon="images/yuna.jpg" class="left">example 3</option>
+                    </select>
+                    <label>Product</label>
                 </div>
                 <div class="input-field">
                     <input type="text" name="quantity" id="quantity">
@@ -72,9 +78,4 @@
         </div>
     </div>
   </div>
-  <%-- <c:out value="${productDao}"/> --%>
-  <%-- <c:forEach items="stockList" var="stock">
-    ${stock}
-  </c:forEach> --%>
-
 <%@ include file="footer.jsp" %>

@@ -23,16 +23,35 @@
      <noscript>
         site needs javascript to run
     </noscript>
+    <style>
+      header,main, footer {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header,main, footer {
+        padding-left: 0;
+      }
+    }
+    .sidenav{
+      margin-top:10 important!;
+    }
+    </style>
   </head>
   <body>
+  <header>
     <nav>
     <div class="nav-wrapper">
+      <div class="container">
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <a href="#" class="brand-logo">${username}</a>
+      <a href="#" class="brand-logo">BagSystem</a>
       <%-- <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="sass.html">Sass</a></li>
         <li><a href="badges.html">Components</a></li>
         <li><a href="collapsible.html">JavaScript</a></li>
       </ul> --%>
+      </div>
     </div>
   </nav>
+  </header>
+  <main>

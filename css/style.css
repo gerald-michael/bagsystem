@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700);
 .materialize-red {
   background-color: #e51c23 !important;
 }
@@ -6019,12 +6018,12 @@ li.home:before {
   background: #e6e6e6;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
   src: local("Material Icons"), local("MaterialIcons-Regular"), url("../../fonts/material-design-icons/MaterialIcons-Regular.ttf") format("truetype"), url("../../fonts/material-design-icons/MaterialIcons-Regular.woff2") format("woff2"), url("../../fonts/material-design-icons/MaterialIcons-Regular.woff") format("woff"), url("../../fonts/material-design-icons/MaterialIcons-Regular.eot");
-}
+} */
 
 .material-icons {
   font-family: 'Material Icons';

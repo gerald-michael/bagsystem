@@ -2,7 +2,7 @@
 <%@ page import="com.products.dao.ProductDao,com.products.bean.TransactionList,java.util.List,java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="nav.jsp" %>
-<%-- <%@ include file="sidebar.jsp"%> --%>
+<%@ include file="sidebar.jsp"%>
   <div class="row">
     <div class="col s12 m4"> 
         <div class="card-panel">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html" errorPage="error.jsp"%>
 <%@ include file="nav.jsp" %>
+<%@ include file="sidebar.jsp"%>
 <div class=container>
   <div class="row">
     <div class="col s12 m6 l3 ">
@@ -79,4 +80,4 @@
   </div>
 </div>
 
-<%-- <%@ include file="footer.jsp" %> --%>
+<%@ include file="footer.jsp" %>
