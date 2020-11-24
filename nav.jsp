@@ -24,34 +24,66 @@
         site needs javascript to run
     </noscript>
     <style>
-      header,main, footer {
+     main, footer {
       padding-left: 300px;
     }
 
     @media only screen and (max-width : 992px) {
-      header,main, footer {
+    main, footer {
         padding-left: 0;
       }
     }
     .sidenav{
-      margin-top:10 important!;
+      position:relative;
+      top:70px;
     }
+    #footer { 
+            position: fixed; 
+            width:100%;
+            bottom: 0; 
+        }
     </style>
   </head>
   <body>
-  <header>
-    <nav>
-    <div class="nav-wrapper">
-      <div class="container">
-      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <a href="#" class="brand-logo">BagSystem</a>
-      <%-- <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-      </ul> --%>
+    <%
+      response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+      response.setHeader("Pragma","no-cache");
+      response.setHeader("Expires","0");  
+    %>
+    <header id="header" class="page-topbar">
+      <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-light-blue-cyan">
+          <div class="container"/>
+          <div class="nav-wrapper">
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left">
+              <li>
+                <h1 class="logo-wrapper">
+                  <a href="index.jsp" class="brand-logo darken-1">
+                    <span class="logo-text">BagSystem</span>
+                  </a>
+                </h1>
+              </li>
+            </ul>
+            <ul class="right">
+              <li>
+                <a href="profile.jsp" class="waves-effect waves-block waves-light profile-button" data-activates="profile-dropdown">
+                  <span class="avatar-status avatar-online">
+                    <img src="../portal/images/yuna.jpg" alt="avatar">
+                    <i></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="logout" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse">
+                  <i class="material-icons">format_indent_increase</i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          </div>
+        </nav>
       </div>
-    </div>
-  </nav>
-  </header>
+      <!-- end header nav-->
+    </header>
   <main>

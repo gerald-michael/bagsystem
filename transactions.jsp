@@ -20,7 +20,7 @@
                     <input type="text" name="buyingprice" id="buyingprice">
                     <label for="buyingprice"> Selling Price</label>
                 </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">
+                <button class="btn waves-effect waves-light blue" type="submit" name="action">
                     Create
                     <i class="material-icons right">add</i>
                 </button>

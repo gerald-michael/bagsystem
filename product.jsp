@@ -17,7 +17,7 @@
                 <label for="description"> description</label>
             </div>
             <div class="input-field file-field">
-                <div class="btn">
+                <div class="btn blue">
                     <i class="material-icons">attach_file</i>
                     <input type="file">
                 </div>
@@ -25,7 +25,7 @@
                     <input type="text" class="file-path validate" placeholder="Product image">
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">
+            <button class="btn waves-effect waves-light blue" type="submit" name="action">
                 Create
                 <i class="material-icons right">add</i>
             </button>

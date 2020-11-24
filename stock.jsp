@@ -34,7 +34,7 @@
                     <input type="text" name="size" id="size">
                     <label for="size"> Size</label>
                 </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">
+                <button class="btn waves-effect waves-light blue" type="submit" name="action">
                     Create
                     <i class="material-icons right">add</i>
                 </button>
