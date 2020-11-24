@@ -6,12 +6,18 @@ public class StockList {
     private String product_name;
     private String product_description;
     private int quantity;
+    private int stock_id;
     private double buying_price;
     private String color_name;
     private String size_name;
     private Date date_updated;
     private Date date_created;
-
+    public int getStock_id(){
+        return stock_id;
+    }
+    public void setStock_id(int id){
+        this.stock_id = id;
+    }
     public String getProduct_name() {
         return product_name;
     }

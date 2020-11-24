@@ -19,34 +19,29 @@ import com.authentication.dao.AuthenticationDao;
 import com.products.bean.*;
 import com.products.dao.*;
 
-@WebServlet("/createstock")
-public class StockCreateServlet extends HttpServlet {
+@WebServlet("/createtransaction")
+public class TransactionCreateServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String productName = request.getParameter("productName");
+        int stock_id = Integer.parseInt(request.getParameter("stock"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double buyingPrice = Double.parseDouble(request.getParameter("buyingprice"));
-        String size = request.getParameter("size");
-        String color = request.getParameter("color");
+        double sellingPrice = Double.parseDouble(request.getParameter("sellingprice"));
+        Transaction transaction = new Transaction();
+        transaction.setQuantity(quantity);
+        transaction.setSelling_price(sellingPrice);
+        transaction.setStock_id(stock_id);
         User user = new User();
         HttpSession session = request.getSession();
         user.setUsername(session.getAttribute("username").toString());
-        Stock stock = new Stock();
-        stock.setColor(color);
-        stock.setQuantity(quantity);
-        stock.setBuying_price(buyingPrice);
-        stock.setSize(size);
-        Product product = new Product();
-        product.setName(productName);
         try {
             AuthenticationDao authenticationDao = new AuthenticationDao();
             user = authenticationDao.getUser(user);
-            stock.setAdded_by(user.getId());
+            transaction.setAdded_by(user.getId());
             ProductDao productDao = new ProductDao();
-            productDao.createStock(stock, product);
-            response.sendRedirect("stock.jsp?message=" + "stock added succesfully");
+            productDao.createTransaction(transaction);
+            response.sendRedirect("transactions.jsp?message=" + "transaction created succesfully");
         } catch (Exception e) {
-            response.sendRedirect("stock.jsp?error=" + "failed to add stock");
+            response.sendRedirect("transactions.jsp?error=" + "failed to create transaction");
         }
     }
 }

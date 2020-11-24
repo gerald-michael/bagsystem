@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html" errorPage="error.jsp"  %>
-<%@ page import="com.products.dao.ProductDao,com.products.bean.TransactionList,java.util.List,java.util.ArrayList"%>
+<%@ page import="com.products.dao.ProductDao,com.products.bean.*,java.util.List,java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="nav.jsp" %>
 <%@ include file="sidebar.jsp"%>
@@ -7,18 +7,27 @@
     <div class="col s12 m4"> 
         <div class="card-panel">
             <h4 class="header2">New Transaction</h4>
-            <form action="createstock" method="post">
+            <form action="createtransaction" method="post">
                 <div class="input-field">
-                    <input type="text" name="stock" id="stock">
-                    <label for="stock"> Stock </label>
+                    <select class="icons" name="stock">
+                         <option value="" disabled selected>Choose your Stock</option>
+                        <%
+                            ProductDao productDao = new ProductDao();
+                            List<StockList> stockList = productDao.getStock();
+                            for(StockList stock: stockList){
+                                out.println("<option value="+stock.getStock_id()+" data-icon='images/sample-1.jpg' class='left'>"+stock.getProduct_name()+"</option>");
+                            }
+                        %>
+                    </select>
+                    <label>Product</label>
                 </div>
                 <div class="input-field">
                     <input type="number" name="quantity" id="quantity">
                     <label for="quantity"> Quantity</label>
                 </div>
                 <div class="input-field">
-                    <input type="text" name="buyingprice" id="buyingprice">
-                    <label for="buyingprice"> Selling Price</label>
+                    <input type="text" name="sellingprice" id="sellingprice">
+                    <label for="sellingprice"> Selling Price</label>
                 </div>
                 <button class="btn waves-effect waves-light blue" type="submit" name="action">
                     Create
@@ -47,7 +56,6 @@
                 </thead>
                 <tbody>
                     <%
-                        ProductDao productDao = new ProductDao();
                         List<TransactionList> transctionList = new ArrayList<>();
                         transctionList = productDao.getTransactions();
                         for(TransactionList transaction: transctionList){

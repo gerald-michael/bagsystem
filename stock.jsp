@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html" errorPage="error.jsp"  %>
-<%@ page import="com.products.dao.ProductDao,com.products.bean.StockList,java.util.List,java.util.ArrayList"%>
+<%@ page import="com.products.dao.ProductDao,com.products.bean.*,java.util.List,java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="nav.jsp" %>
 <%@ include file="sidebar.jsp"%>
@@ -10,11 +10,15 @@
             <br/>
             <form action="createstock" method="post">
                 <div class="input-field">
-                    <select class="icons">
-                    <option value="" disabled selected>Choose your product</option>
-                    <option value="" data-icon="images/sample-1.jpg" class="left">example 1</option>
-                    <option value="" data-icon="images/office.jpg" class="left">example 2</option>
-                    <option value="" data-icon="images/yuna.jpg" class="left">example 3</option>
+                    <select class="icons" name="productName">
+                         <option value="" disabled selected>Choose your product</option>
+                        <%
+                            ProductDao productDao = new ProductDao();
+                            List <Product> products = productDao.queryProducts(productDao.ORDER_BY_NONE);
+                            for(Product product:products){
+                                out.println("<option value="+product.getName()+" data-icon='images/sample-1.jpg' class='left'>"+product.getName()+"</option>");
+                            }
+                        %>
                     </select>
                     <label>Product</label>
                 </div>
@@ -58,7 +62,6 @@
                 </thead>
                 <tbody>
                     <%
-                        ProductDao productDao = new ProductDao();
                         List<StockList> stockList = new ArrayList<>();
                         stockList = productDao.getStock();
                         for(StockList stock: stockList){

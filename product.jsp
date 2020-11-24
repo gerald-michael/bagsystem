@@ -9,11 +9,11 @@
         <h4 class="header2">New Product</h4>
         <form action="create" method="post">
             <div class="input-field">
-                <input type="text" name="ProductName" id="ProductName">
+                <input type="text" name="name" id="ProductName">
                 <label for="ProductName"> Product Name </label>
             </div>
             <div class="input-field">
-                <textarea id="description" class="materialize-textarea" length="120"></textarea>
+                <textarea id="description" name="description" class="materialize-textarea" length="120"></textarea>
                 <label for="description"> description</label>
             </div>
             <div class="input-field file-field">
