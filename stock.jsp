@@ -16,7 +16,7 @@
                             ProductDao productDao = new ProductDao();
                             List <Product> products = productDao.queryProducts(productDao.ORDER_BY_NONE);
                             for(Product product:products){
-                                out.println("<option value="+product.getName()+" data-icon='images/sample-1.jpg' class='left'>"+product.getName()+"</option>");
+                                out.println("<option value="+product.getName()+" data-icon='../portal/products/"+product.getImageUri()+"' class='left'>"+product.getName()+"</option>");
                             }
                         %>
                     </select>
@@ -58,6 +58,8 @@
                         <th>Buying Price</th>
                         <th>Date Updated</th>
                         <th>Date Created</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,6 +75,8 @@
                             out.println("<td>"+stock.getBuying_price()+ "</td>");
                             out.println("<td>"+stock.getDate_updated()+ "</td>");
                             out.println("<td>"+stock.getDate_created()+ "</td>");
+                            out.println("<td>"+"<a href='#modal1' class='modal-trigger'><i class='material-icons green-text'>edit</i></a>"+ "</td>");
+                            out.println("<td>"+"<a href='#!'><i class='material-icons red-text'>delete</i></a>"+ "</td>");
                             out.println("</tr>");
                         }
                     %>
@@ -81,4 +85,28 @@
         </div>
     </div>
   </div>
+      <div id="modal1" class="modal">
+        <form method="post" action="updateUser">
+            <div class="modal-content">
+            <h4>Update user</h4>
+                <div class="input-field">
+                    <label for="first">First Name</label><input type="text" name="firstName" id="first">
+                </div>
+                <div class="input-field">
+                    <label for="last">Last Name</label><input type="text" name="lastName" id="last">
+                </div>
+                <div class="input-field">
+                    <label for="password">Password</label><input type="password" name="password" id="password">
+                </div>
+                <div class="input-field">
+                    <label for="confirm">Confirm Password</label><input type="password" name="confirm" id="confirm">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn waves-effect waves-light blue" type="submit" name="action">update
+                    <i class="material-icons right">create</i>
+                </button>
+            </div>
+        </form>
+    </div>
 <%@ include file="footer.jsp" %>

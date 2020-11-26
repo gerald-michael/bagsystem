@@ -18,12 +18,13 @@
           $('.sidenav').sidenav();
           $('.materialboxed').materialbox();
           $('.modal').modal();
+          $('.tabs').tabs();
         });
     </script>
     <%
       String message = request.getParameter("message");
       if(message != null){
-        message = "\"<span><i class='material-icons left'>check</i>" + message + "</span>\"";
+        message = "\"<span><i class='material-icons left'>done</i>" + message + "</span>\"";
         out.println("<script type='text/javascript'>");
         out.println("var toastHTML = " + message + ";");
         out.println("M.toast({html: toastHTML, classes:'green'});");

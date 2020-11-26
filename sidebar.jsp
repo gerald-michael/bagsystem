@@ -7,8 +7,8 @@
       <a href="profile.jsp"><span class="white-text name">${username}</span></a>
       <a href="profile.jsp"><span class="white-text email">Administrator</span></a>
     </div></li>
-    <li><a href="index.jsp"><i class="material-icons">pie_chart_outlined</i>Dashbord</a></li>    
-    <li><a href="users.jsp"><i class="material-icons">account_box</i>Manage</a></li>
+    <li><a href="index.jsp"><i class="material-icons">dashboard</i>Dashbord</a></li>    
+    <li><a href="manage.jsp"><i class="material-icons">account_box</i>Manage</a></li>
     <li><a href="product.jsp">Products</a></li>
     <li><a href="stock.jsp">Stock</a></li>
     <li><a href="transactions.jsp">Transaction</a></li>

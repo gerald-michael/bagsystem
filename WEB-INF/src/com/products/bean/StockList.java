@@ -12,12 +12,24 @@ public class StockList {
     private String size_name;
     private Date date_updated;
     private Date date_created;
-    public int getStock_id(){
+    private String imageUri;
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String image) {
+        this.imageUri = image;
+    }
+
+    public int getStock_id() {
         return stock_id;
     }
-    public void setStock_id(int id){
+
+    public void setStock_id(int id) {
         this.stock_id = id;
     }
+
     public String getProduct_name() {
         return product_name;
     }

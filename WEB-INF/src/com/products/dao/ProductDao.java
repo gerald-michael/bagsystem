@@ -61,6 +61,7 @@ public class ProductDao {
     public static final String COLUMN_STOCK_LIST_COLOR_NAME = "color";
     public static final String COLUMN_STOCK_LIST_SIZE_NAME = "size";
     public static final String COLUMN_STOCK_LIST_STOCK_ID = "stock_id";
+    public static final String COLUMN_STOCK_LIST_STOCK_IMAGE_URI = "image";
     public static final String COLUMN_STOCK_LIST_UPDATED = "date_updated";
     public static final String COLUMN_STOCK_LIST_DATE_CREATED = "date_created";
 
@@ -228,6 +229,7 @@ public class ProductDao {
                 stock.setBuying_price(results.getDouble(COLUMN_STOCK_LIST_BUYING_PRICE));
                 stock.setColor_name(results.getString(COLUMN_STOCK_LIST_COLOR_NAME));
                 stock.setStock_id(results.getInt(COLUMN_STOCK_LIST_STOCK_ID));
+                stock.setImageUri(results.getString(COLUMN_STOCK_LIST_STOCK_IMAGE_URI));
                 stock.setSize_name(results.getString(COLUMN_STOCK_LIST_SIZE_NAME));
                 stock.setDate_created(format.parse(results.getString(COLUMN_STOCK_LIST_DATE_CREATED)));
                 if (results.getString(COLUMN_STOCK_LIST_UPDATED) != null) {
