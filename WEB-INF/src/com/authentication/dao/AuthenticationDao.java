@@ -3,6 +3,9 @@ package com.authentication.dao;
 import com.authentication.bean.*;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthenticationDao {
 
@@ -10,7 +13,7 @@ public class AuthenticationDao {
     private static String dbUsername = "vypa";
     private static String dbPassword = "root";
 
-    //users
+    // users
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_USERS_ID = "id";
     public static final String COLUMN_USERS_FIRST_NAME = "first_name";
@@ -21,7 +24,7 @@ public class AuthenticationDao {
     public static final String COLUMN_USERS_DATE_CREATED = "date_created";
     public static final String COLUMN_USERS_DATE_UPDATED = "date_updated";
 
-    //groups
+    // groups
     public static final String TABLE_GROUPS = "groups";
     public static final String COLUMN_GROUPS_ID = "id";
     public static final String COLUMN_GROUPS_NAME = "name";
@@ -29,7 +32,7 @@ public class AuthenticationDao {
     public static final String COLUMN_GROUPS_DATE_CREATED = "date_created";
     public static final String COLUMN_GROUPS_DATE_UPDATED = "date_updated";
 
-    //permissions
+    // permissions
     public static final String TABLE_PERMISSIONS = "permissions";
     public static final String COLUMN_PERMISSIONS_ID = "id";
     public static final String COLUMN_PERMISSIONS_NAME = "name";
@@ -37,13 +40,13 @@ public class AuthenticationDao {
     public static final String COLUMN_PERMISSIONS_DATE_CREATED = "date_created";
     public static final String COLUMN_PERMISSIONS_DATE_UPDATED = "date_updated";
 
-    //permissions to groups many to many join table
+    // permissions to groups many to many join table
     public static final String TABLE_GROUPS_PERMISSIONS = "groups_permissions";
     public static final String COLUMN_GROUPS_PERMISSIONS_ID = "id";
     public static final String COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID = "permission_id";
     public static final String COLUMN_GROUPS_PERMISSIONS_GROUPS_ID = "group_id";
 
-    //assign users to groups
+    // assign users to groups
     public static final String TABLE_USER_GROUPS = "user_groups";
     public static final String COLUMN_USER_GROUPS_ID = "id";
     public static final String COLUMN_USER_GROUPS_USER_ID = "user_id";
@@ -56,22 +59,40 @@ public class AuthenticationDao {
     public static final int ORDER_BY_DESC = 3;
 
     // queries
-    public static final String CHECK_USER_NAME_EXISTS = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME + " = ?";
-    public static final String CREATE_USER = "INSERT INTO " + TABLE_USERS + "(" + COLUMN_USERS_FIRST_NAME + ", " + COLUMN_USERS_LAST_NAME + ", " + COLUMN_USERS_USERNAME + ", " + COLUMN_USERS_PROFILE_IMAGE + ", " + COLUMN_USERS_PASSWORD + ") VALUES (?,?,?,?,?)";
-    public static final String LOGIN_USER = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME + " = ? AND " + COLUMN_USERS_PASSWORD + " = ?";
-    public static final String UPDATE_USER = "UPDATE " + TABLE_USERS + " SET " + COLUMN_USERS_FIRST_NAME + " =?, " + COLUMN_USERS_LAST_NAME + " =? , " + COLUMN_USERS_USERNAME + "=? ," + COLUMN_USERS_PROFILE_IMAGE + " = ? ," + COLUMN_USERS_PASSWORD + " =? WHERE " + COLUMN_USERS_ID + " =?";
-    public static final String CREATE_PERMISSION = "INSERT INTO " + TABLE_PERMISSIONS + " (" + COLUMN_PERMISSIONS_NAME + ", " + COLUMN_PERMISSIONS_CREATED_BY + ") VALUES (?,?)";
-    public static final String CREATE_GROUP = "INSERT INTO `" + TABLE_GROUPS + "` (" + COLUMN_GROUPS_NAME + ", " + COLUMN_GROUPS_CREATED_BY + ") VALUES (?,?)";
-    public static final String ADD_PERMISSION_TO_GROUP = "INSERT INTO " + TABLE_GROUPS_PERMISSIONS + " (" + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + ", " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + ") VALUES (?,?)";
-    public static final String ADD_USERS_TO_GROUPS = "INSERT INTO " + TABLE_USER_GROUPS + " (" + COLUMN_USER_GROUPS_USER_ID + ", " + COLUMN_USER_GROUPS_GROUPS_ID + ") VALUES (?,?)";
-    public static final String CHECK_IF_GROUP_EXISTS = "SELECT * FROM `" + TABLE_GROUPS + "` WHERE " + COLUMN_GROUPS_NAME + " =?";
-    public static final String CHECK_IF_PERMISSION_EXISTS = "SELECT * FROM " + TABLE_PERMISSIONS + " WHERE " + COLUMN_PERMISSIONS_NAME + " =?";
-    public static final String CHECK_IF_USER_GROUPS_EXISTS = "SELECT * FROM " + TABLE_USER_GROUPS + " WHERE " + COLUMN_USER_GROUPS_USER_ID + " =? AND " + COLUMN_USER_GROUPS_GROUPS_ID + " = ?";
-    public static final String CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS = "SELECT * FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + " = ?";
-    public static final String DELETE_USER_GROUP = "DELETE FROM " + TABLE_USER_GROUPS + " WHERE " + COLUMN_USER_GROUPS_ID + " = ?";
-    public static final String DELETE_PERMISSION_TO_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_ID + " = ?";
+    public static final String CHECK_USER_NAME_EXISTS = "SELECT * FROM " + TABLE_USERS + " WHERE "
+            + COLUMN_USERS_USERNAME + " = ?";
+    public static final String CREATE_USER = "INSERT INTO " + TABLE_USERS + "(" + COLUMN_USERS_FIRST_NAME + ", "
+            + COLUMN_USERS_LAST_NAME + ", " + COLUMN_USERS_USERNAME + ", " + COLUMN_USERS_PROFILE_IMAGE + ", "
+            + COLUMN_USERS_PASSWORD + ") VALUES (?,?,?,?,?)";
+    public static final String LOGIN_USER = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME
+            + " = ? AND " + COLUMN_USERS_PASSWORD + " = ?";
+    public static final String UPDATE_USER = "UPDATE " + TABLE_USERS + " SET " + COLUMN_USERS_FIRST_NAME + " =?, "
+            + COLUMN_USERS_LAST_NAME + " =? , " + COLUMN_USERS_USERNAME + "=? ," + COLUMN_USERS_PROFILE_IMAGE + " = ? ,"
+            + COLUMN_USERS_PASSWORD + " =? WHERE " + COLUMN_USERS_ID + " =?";
+    public static final String CREATE_PERMISSION = "INSERT INTO " + TABLE_PERMISSIONS + " (" + COLUMN_PERMISSIONS_NAME
+            + ", " + COLUMN_PERMISSIONS_CREATED_BY + ") VALUES (?,?)";
+    public static final String CREATE_GROUP = "INSERT INTO `" + TABLE_GROUPS + "` (" + COLUMN_GROUPS_NAME + ", "
+            + COLUMN_GROUPS_CREATED_BY + ") VALUES (?,?)";
+    public static final String ADD_PERMISSION_TO_GROUP = "INSERT INTO " + TABLE_GROUPS_PERMISSIONS + " ("
+            + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + ", " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + ") VALUES (?,?)";
+    public static final String ADD_USERS_TO_GROUPS = "INSERT INTO " + TABLE_USER_GROUPS + " ("
+            + COLUMN_USER_GROUPS_USER_ID + ", " + COLUMN_USER_GROUPS_GROUPS_ID + ") VALUES (?,?)";
+    public static final String CHECK_IF_GROUP_EXISTS = "SELECT * FROM `" + TABLE_GROUPS + "` WHERE "
+            + COLUMN_GROUPS_NAME + " =?";
+    public static final String CHECK_IF_PERMISSION_EXISTS = "SELECT * FROM " + TABLE_PERMISSIONS + " WHERE "
+            + COLUMN_PERMISSIONS_NAME + " =?";
+    public static final String CHECK_IF_USER_GROUPS_EXISTS = "SELECT * FROM " + TABLE_USER_GROUPS + " WHERE "
+            + COLUMN_USER_GROUPS_USER_ID + " =? AND " + COLUMN_USER_GROUPS_GROUPS_ID + " = ?";
+    public static final String CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS = "SELECT * FROM " + TABLE_GROUPS_PERMISSIONS
+            + " WHERE " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID
+            + " = ?";
+    public static final String DELETE_USER_GROUP = "DELETE FROM " + TABLE_USER_GROUPS + " WHERE "
+            + COLUMN_USER_GROUPS_ID + " = ?";
+    public static final String DELETE_PERMISSION_TO_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE "
+            + COLUMN_GROUPS_PERMISSIONS_ID + " = ?";
     public static final String GET_USER = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME + "=?";
     public static final String GET_USER_WITH_ID = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_ID + "=?";
+    public static final String GET_USERS = "SELECT * FROM " + TABLE_USERS;
     private Connection conn;
 
     public boolean open() throws SQLException, ClassNotFoundException {
@@ -119,7 +140,7 @@ public class AuthenticationDao {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
                     close();
-                    if(id==1){
+                    if (id == 1) {
                         initDatabase();
                     }
                     return id;
@@ -182,7 +203,8 @@ public class AuthenticationDao {
     public int createPermission(Permission permission) {
         try {
             open();
-            PreparedStatement checkPermissionExists = conn.prepareStatement(CHECK_IF_PERMISSION_EXISTS, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement checkPermissionExists = conn.prepareStatement(CHECK_IF_PERMISSION_EXISTS,
+                    Statement.RETURN_GENERATED_KEYS);
             checkPermissionExists.setString(1, permission.getName());
             ResultSet results = checkPermissionExists.executeQuery();
             if (results.next()) {
@@ -190,7 +212,8 @@ public class AuthenticationDao {
                 close();
                 return id;
             } else {
-                PreparedStatement createNewPermission = conn.prepareStatement(CREATE_PERMISSION, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement createNewPermission = conn.prepareStatement(CREATE_PERMISSION,
+                        Statement.RETURN_GENERATED_KEYS);
                 createNewPermission.setString(1, permission.getName());
                 createNewPermission.setInt(2, permission.getCreatedBy());
                 int affectedRows = createNewPermission.executeUpdate();
@@ -214,7 +237,8 @@ public class AuthenticationDao {
     public int createGroup(Group group) {
         try {
             open();
-            PreparedStatement checkGroupExists = conn.prepareStatement(CHECK_IF_GROUP_EXISTS, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement checkGroupExists = conn.prepareStatement(CHECK_IF_GROUP_EXISTS,
+                    Statement.RETURN_GENERATED_KEYS);
             checkGroupExists.setString(1, group.getName());
             ResultSet results = checkGroupExists.executeQuery();
 
@@ -249,7 +273,8 @@ public class AuthenticationDao {
     public int assignPermissionsToGroups(GroupPermissions groupPermissions) {
         try {
             open();
-            PreparedStatement checkPermissionToGroupExists = conn.prepareStatement(CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement checkPermissionToGroupExists = conn
+                    .prepareStatement(CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS, Statement.RETURN_GENERATED_KEYS);
             checkPermissionToGroupExists.setInt(1, groupPermissions.getPermissionId());
             checkPermissionToGroupExists.setInt(2, groupPermissions.getGroupId());
             ResultSet results = checkPermissionToGroupExists.executeQuery();
@@ -258,7 +283,8 @@ public class AuthenticationDao {
                 close();
                 return id;
             } else {
-                PreparedStatement assignPermissions = conn.prepareStatement(ADD_PERMISSION_TO_GROUP, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement assignPermissions = conn.prepareStatement(ADD_PERMISSION_TO_GROUP,
+                        Statement.RETURN_GENERATED_KEYS);
                 assignPermissions.setInt(1, groupPermissions.getGroupId());
                 assignPermissions.setInt(2, groupPermissions.getPermissionId());
 
@@ -286,7 +312,8 @@ public class AuthenticationDao {
     public int assignUsersToGroups(UserGroups userGroups) {
         try {
             open();
-            PreparedStatement checkUserToGroupsExists = conn.prepareStatement(CHECK_IF_USER_GROUPS_EXISTS, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement checkUserToGroupsExists = conn.prepareStatement(CHECK_IF_USER_GROUPS_EXISTS,
+                    Statement.RETURN_GENERATED_KEYS);
             checkUserToGroupsExists.setInt(1, userGroups.getUserId());
             checkUserToGroupsExists.setInt(2, userGroups.getGroupId());
             ResultSet results = checkUserToGroupsExists.executeQuery();
@@ -295,7 +322,8 @@ public class AuthenticationDao {
                 close();
                 return id;
             } else {
-                PreparedStatement assignGroups = conn.prepareStatement(ADD_USERS_TO_GROUPS, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement assignGroups = conn.prepareStatement(ADD_USERS_TO_GROUPS,
+                        Statement.RETURN_GENERATED_KEYS);
                 assignGroups.setInt(1, userGroups.getUserId());
                 assignGroups.setInt(2, userGroups.getGroupId());
 
@@ -319,37 +347,38 @@ public class AuthenticationDao {
             return -1;
         }
     }
-    public boolean deleteUserGroupFunc(UserGroups userGroups){
+
+    public boolean deleteUserGroupFunc(UserGroups userGroups) {
         try {
             open();
             PreparedStatement deleteUserGroup = conn.prepareStatement(DELETE_USER_GROUP);
-            deleteUserGroup.setInt(1,userGroups.getId());
+            deleteUserGroup.setInt(1, userGroups.getId());
             int affectedRows = deleteUserGroup.executeUpdate();
             close();
             return affectedRows == 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             close();
-            return  false;
+            return false;
         }
     }
 
-    public boolean deleteGroupPermissions(GroupPermissions groupPermissions){
+    public boolean deleteGroupPermissions(GroupPermissions groupPermissions) {
         try {
             open();
             PreparedStatement deleteGroupPermissions = conn.prepareStatement(DELETE_PERMISSION_TO_GROUP);
-            deleteGroupPermissions.setInt(1,groupPermissions.getId());
+            deleteGroupPermissions.setInt(1, groupPermissions.getId());
             int affectedRows = deleteGroupPermissions.executeUpdate();
             close();
             return affectedRows == 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             close();
-            return  false;
+            return false;
         }
     }
 
-    private void initDatabase(){
+    private void initDatabase() {
         Group group = new Group();
         group.setName("admin");
         group.setCreatedBy(1);
@@ -368,34 +397,35 @@ public class AuthenticationDao {
         int group_permission_id = this.assignPermissionsToGroups(groupPermissions);
     }
 
-    public User getUser(User user){
-        try{
+    public User getUser(User user) {
+        try {
             open();
             PreparedStatement statement = conn.prepareStatement(GET_USER);
-            statement.setString(1,user.getUsername());
+            statement.setString(1, user.getUsername());
 
             ResultSet results = statement.executeQuery();
-            while(results.next()){
+            while (results.next()) {
                 user.setId(results.getInt(COLUMN_USERS_ID));
                 user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
                 user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
                 user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
             }
             return user;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
             close();
             return null;
         }
     }
-    public User getUserWithId(User user){
-        try{
+
+    public User getUserWithId(User user) {
+        try {
             open();
             PreparedStatement statement = conn.prepareStatement(GET_USER_WITH_ID);
-            statement.setInt(1,user.getId());
+            statement.setInt(1, user.getId());
 
             ResultSet results = statement.executeQuery();
-            while(results.next()){
+            while (results.next()) {
                 user.setId(results.getInt(COLUMN_USERS_ID));
                 user.setUsername(results.getString(COLUMN_USERS_USERNAME));
                 user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
@@ -403,7 +433,34 @@ public class AuthenticationDao {
                 user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
             }
             return user;
-        }catch (Exception e){
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+
+    public List<User> getUsers() {
+        try {
+            open();
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(GET_USERS);
+            List<User> users = new ArrayList<>();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            while (results.next()) {
+                User user = new User();
+                user.setUsername(results.getString(COLUMN_USERS_USERNAME));
+                user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
+                user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
+                user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
+                user.setDateCreated(format.parse(results.getString(COLUMN_USERS_DATE_CREATED)));
+                if (results.getString(COLUMN_USERS_DATE_UPDATED) != null) {
+                    user.setDateUpdated(format.parse(results.getString(COLUMN_USERS_DATE_UPDATED)));
+                }
+                users.add(user);
+            }
+            return users;
+        } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
             close();
             return null;

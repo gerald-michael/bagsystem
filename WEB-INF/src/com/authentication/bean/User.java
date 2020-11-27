@@ -1,5 +1,5 @@
 package com.authentication.bean;
-
+import java.util.Date;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
@@ -9,6 +9,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String profileImage;
+    private Date dateCreated;
+    private Date dateUpdated;
+    private String password;
+    private String confirmPassword;
 
     public int getId() {
         return id;
@@ -17,9 +21,6 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String password;
-    private String confirmPassword;
 
     public String getProfileImage() {
         return profileImage;
@@ -68,7 +69,21 @@ public class User {
     public String getConfirmPassword() {
         return confirmPassword;
     }
+    public Date getDateCreated() {
+        return dateCreated;
+    }
 
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Date getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
     public static String encrypt(String password) {
 
         try {

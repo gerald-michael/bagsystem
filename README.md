@@ -1,5 +1,5 @@
 # bagsystem
-NAD assignment to create a servlet/ jsp project
+NAD assignment to create a servlet/jsp project
 
 
 # How to make images work
