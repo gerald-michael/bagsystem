@@ -1,11 +1,13 @@
+  <%@ page import="com.authentication.dao.*,com.authentication.bean.*,java.util.List,java.util.ArrayList"%>
   <ul id="slide-out" class="sidenav sidenav-fixed">
     <li><div class="user-view">
       <div class="background">
         <img class='materialboxed materialboxed responsive-img' src="../portal/images/office.jpg">
       </div>
-      <a href="profile.jsp"><img class="circle" src="../portal/images/yuna.jpg"></a>
+      <%
+        out.println("<a href='profile.jsp'><img class='circle' src='../portal/profile/"+userx.getProfileImage()+"'></a>");
+      %>
       <a href="profile.jsp"><span class="white-text name">${username}</span></a>
-      <a href="profile.jsp"><span class="white-text email">Administrator</span></a>
     </div></li>
     <li><a href="index.jsp"><i class="material-icons">dashboard</i>Dashbord</a></li>    
     <li><a href="manage.jsp"><i class="material-icons">account_box</i>Manage</a></li>

@@ -55,9 +55,7 @@
                         <th>Size</th>
                         <th>Quantity</th>
                         <th>Buying Price</th>
-                        <th>Date Updated</th>
                         <th>Date Created</th>
-                        <th>Update</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -72,10 +70,8 @@
                             out.println("<td>"+stock.getSize_name() +"</td>");
                             out.println("<td>"+stock.getQuantity()+ "</td>");
                             out.println("<td>"+stock.getBuying_price()+ "</td>");
-                            out.println("<td>"+stock.getDate_updated()+ "</td>");
                             out.println("<td>"+stock.getDate_created()+ "</td>");
-                            out.println("<td>"+"<a href='#modal1' class='modal-trigger'><i class='material-icons green-text'>edit</i></a>"+ "</td>");
-                            out.println("<td>"+"<a href='#!'><i class='material-icons red-text'>delete</i></a>"+ "</td>");
+                            out.println("<td>"+"<a href='deleteStock?id="+stock.getStock_id()+"'><i class='material-icons red-text'>delete</i></a>"+ "</td>");
                             out.println("</tr>");
                         }
                     %>
@@ -84,28 +80,4 @@
         </div>
     </div>
   </div>
-      <div id="modal1" class="modal">
-        <form method="post" action="updateUser">
-            <div class="modal-content">
-            <h4>Update user</h4>
-                <div class="input-field">
-                    <label for="first">First Name</label><input type="text" name="firstName" id="first">
-                </div>
-                <div class="input-field">
-                    <label for="last">Last Name</label><input type="text" name="lastName" id="last">
-                </div>
-                <div class="input-field">
-                    <label for="password">Password</label><input type="password" name="password" id="password">
-                </div>
-                <div class="input-field">
-                    <label for="confirm">Confirm Password</label><input type="password" name="confirm" id="confirm">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light blue" type="submit" name="action">update
-                    <i class="material-icons right">create</i>
-                </button>
-            </div>
-        </form>
-    </div>
 <%@ include file="footer.jsp" %>

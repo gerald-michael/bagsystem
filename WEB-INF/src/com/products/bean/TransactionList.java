@@ -13,6 +13,15 @@ public class TransactionList {
     private String updated_by;
     private Date date_updated;
     private Date date_created;
+    private int transactionId;
+
+    public int getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public double getSelling_price() {
         return selling_price;

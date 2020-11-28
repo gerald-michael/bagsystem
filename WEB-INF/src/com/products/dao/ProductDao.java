@@ -77,6 +77,7 @@ public class ProductDao {
     public static final String COLUMN_TRANSACTION_LIST_UPDATED_BY = "updated_by";
     public static final String COLUMN_TRANSACTION_LIST_UPDATED = "date_updated";
     public static final String COLUMN_TRANSACTION_LIST_DATE_CREATED = "date_created";
+    public static final String COLUMN_TRANSACTION_LIST_TRANSACTION_ID = "transaction_id";
     // sort order
 
     public static final int ORDER_BY_NONE = 1;
@@ -96,13 +97,17 @@ public class ProductDao {
     public static final String INSERT_TRANSACTION = "INSERT INTO " + TABLE_TRANSACTIONS + " ("
             + COLUMN_TRANSACTION_STOCK_ID + ", " + COLUMN_TRANSACTION_QUANTITY + ", " + COLUMN_TRANSACTION_BUYING_PRICE
             + ", " + COLUMN_TRANSACTION_SELLING_PRICE + ", " + COLUMN_TRANSACTION_ADDED_BY + ") VALUES (?,?,?,?,?)";
-    public static final String UPDATE_PRODUCT = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_PRODUCT_NAME + " = ? ,"
-            + COLUMN_PRODUCT_DESCRIPTION + "=? ," + COLUMN_PRODUCT_UPDATED_BY + "=? ," + COLUMN_PRODUCT_IMAGE
-            + " = ? WHERE " + COLUMN_PRODUCT_ID + " = ?";
+    public static final String UPDATE_PRODUCT = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_PRODUCT_DESCRIPTION + "=? ," + COLUMN_PRODUCT_UPDATED_BY + "=? ," + COLUMN_PRODUCT_IMAGE
+            + " = ? WHERE " + COLUMN_PRODUCT_NAME + " = ?";
     public static final String GET_STOCK = "SELECT * FROM " + TABLE_STOCK + " WHERE " + COLUMN_STOCK_ID + " =?";
     public static final String UPDATE_STOCK_QUANTITY = "UPDATE " + TABLE_STOCK + " SET " + COLUMN_STOCK_QUANTITY
             + " =? WHERE " + COLUMN_STOCK_ID + " =?";
     public static final String GET_TRANSACTIONS = "SELECT * FROM " + VIEW_TRANSACTION_LIST;
+    public static final String DELETE_PRODUCT = "DELETE FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCT_ID + " =?";
+    public static final String DELETE_STOCK = "DELETE FROM " + TABLE_STOCK + " WHERE " + COLUMN_STOCK_ID + "=?";
+    public static final String DELETE_TRANSACTION = " DELETE FROM " + TABLE_TRANSACTIONS + " WHERE "
+            + COLUMN_TRANSACTION_ID + " =?";
+
     private Connection conn;
     // prepared statements for products
     PreparedStatement checkProductExists;
@@ -350,13 +355,10 @@ public class ProductDao {
         open();
         try {
             PreparedStatement update_products = conn.prepareStatement(UPDATE_PRODUCT);
-            update_products.setString(1, product.getName());
-            update_products.setString(2, product.getDescription());
-            update_products.setInt(3, product.getUpdated_by());
-            update_products.setString(4, product.getImageUri());
-            update_products.setInt(5, product.getId());
-            System.out.println(update_products.toString());
-            System.out.println(update_products.toString());
+            update_products.setString(1, product.getDescription());
+            update_products.setInt(2, product.getUpdated_by());
+            update_products.setString(3, product.getImageUri());
+            update_products.setString(4, product.getName());
             int affectedRows = update_products.executeUpdate();
             close();
             return affectedRows == 1;
@@ -462,6 +464,7 @@ public class ProductDao {
                 transaction.setSelling_price(results.getDouble(COLUMN_TRANSACTION_LIST_SELLING_PRICE));
                 transaction.setColor_name(results.getString(COLUMN_TRANSACTION_LIST_COLOR_NAME));
                 transaction.setSize_name(results.getString(COLUMN_TRANSACTION_LIST_SIZE_NAME));
+                transaction.setTransactionId(results.getInt(COLUMN_TRANSACTION_LIST_TRANSACTION_ID));
                 transaction.setDate_created(format.parse(results.getString(COLUMN_TRANSACTION_LIST_DATE_CREATED)));
                 if (results.getString(COLUMN_TRANSACTION_LIST_UPDATED) != null) {
                     transaction.setDate_updated(format.parse(results.getString(COLUMN_TRANSACTION_LIST_UPDATED)));
@@ -484,6 +487,51 @@ public class ProductDao {
             System.out.println("error: " + e.getMessage());
             close();
             return null;
+        }
+    }
+
+    public boolean deleteProduct(Product product) {
+        try {
+            open();
+            PreparedStatement preparedStatement = conn.prepareStatement(DELETE_PRODUCT);
+            preparedStatement.setInt(1, product.getId());
+            int affectedRow = preparedStatement.executeUpdate();
+            close();
+            return affectedRow == 1;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return false;
+        }
+    }
+
+    public boolean deleteStock(Stock stock) {
+        try {
+            open();
+            PreparedStatement preparedStatement = conn.prepareStatement(DELETE_STOCK);
+            preparedStatement.setInt(1, stock.getId());
+            int affectedRow = preparedStatement.executeUpdate();
+            close();
+            return affectedRow == 1;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return false;
+        }
+    }
+
+    public boolean deleteTransaction(Transaction transaction) {
+        try {
+            open();
+            PreparedStatement preparedStatement = conn.prepareStatement(DELETE_TRANSACTION);
+            preparedStatement.setInt(1, transaction.getId());
+            int affectedRow = preparedStatement.executeUpdate();
+            close();
+            return affectedRow == 1;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return false;
         }
     }
 }

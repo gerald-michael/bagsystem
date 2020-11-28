@@ -19,6 +19,7 @@
           $('.materialboxed').materialbox();
           $('.modal').modal();
           $('.tabs').tabs();
+          $('.tooltipped').tooltip();
         });
     </script>
     <%

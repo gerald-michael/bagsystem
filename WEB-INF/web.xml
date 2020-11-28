@@ -60,4 +60,11 @@
       /opt/tomcat/latest/webapps/portal/products/
     </param-value>
   </context-param>
+  <context-param>
+    <description>Location to store uploaded file</description>
+    <param-name>profile-upload</param-name>
+    <param-value>
+      /opt/tomcat/latest/webapps/portal/profile/
+    </param-value>
+  </context-param>
 </web-app>

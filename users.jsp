@@ -14,7 +14,6 @@
         <tbody>
             <%
                 List<User> users = new ArrayList<>();
-                AuthenticationDao authenticationDao = new AuthenticationDao();
                 users = authenticationDao.getUsers();
                 for(User user: users){
                     out.println("<tr>");

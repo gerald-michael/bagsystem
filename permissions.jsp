@@ -39,34 +39,6 @@
 <div class="row">
     <div class="col s12 m6"> 
         <div class="card-panel">
-            <div class="card-panel">
-            <h4 class="header2">Group Permissions</h4>
-            <table class="responsive-table">
-                <thead>
-                    <tr>
-                        <th>Group Name</th>
-                        <th>Permission Name</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>add</td><td>add</td><td>add</td></tr>
-                    <%
-                        List<GroupPermissions> groupPermissions = new ArrayList<>();
-                        groupPermissions = authenticationDao.getGroupsPermission();
-                        //for(GroupPermissions groupPermission:groupPermissions){
-                            //out.println("<tr>");
-                            //out.println("<td>"+permission.getName()+ "</td>");
-                            //out.println("</tr>");
-                        //}
-                    %>
-                </tbody>
-            </table>
-        </div>
-        </div>
-    </div> 
-    <div class="col s12 m6"> 
-        <div class="card-panel">
             <h4 class="header2">All Permissions</h4>
             <table>
                 <thead>
@@ -88,4 +60,33 @@
             </table>
         </div>
     </div>
+    <div class="col s12 m6"> 
+        <div class="card-panel">
+            <div class="card-panel">
+            <h4 class="header2">Group Permissions</h4>
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Permission Name</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        List<GroupPermissions> groupPermissions = new ArrayList<>();
+                        groupPermissions = authenticationDao.getGroupsPermission();
+                        for(GroupPermissions groupPermission:groupPermissions){
+                            out.println("<tr>");
+                            out.println("<td>"+groupPermission.getGroupName()+ "</td>");
+                            out.println("<td>"+groupPermission.getPermissionName()+ "</td>");
+                            out.println("<td>"+"<a href='removePermission?groupId="+groupPermission.getGroupId()+"&permissionId="+groupPermission.getPermissionId()+"'><i class='material-icons orange-text'>remove_circle</i></a>"+ "</td>");
+                            out.println("</tr>");
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div> 
 </div>

@@ -67,15 +67,22 @@
             </ul>
             <ul class="right">
               <li>
-                <a href="profile.jsp" class="waves-effect waves-block waves-light profile-button" data-activates="profile-dropdown">
+                <a href="profile.jsp" class="waves-effect waves-block waves-light profile-button tooltipped" data-position="bottom" data-tooltip="profile">
                   <span class="avatar-status avatar-online">
-                    <img src="../portal/images/yuna.jpg" alt="avatar">
+                    <%
+                      String username = session.getAttribute("username").toString();
+                      AuthenticationDao authenticationDao = new AuthenticationDao();
+                      User userx = new User();
+                      userx.setUsername(username);
+                      userx = authenticationDao.getUser(userx);
+                      out.println("<img src='../portal/profile/"+userx.getProfileImage()+"' alt='avatar'>");
+                    %>
                     <i></i>
                   </span>
                 </a>
               </li>
               <li>
-                <a href="logout" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse">
+                <a href="logout" data-activates="chat-out" data-position="bottom" class="waves-effect waves-block waves-light tooltipped chat-collapse" data-tooltip="logout">
                   <i class="material-icons">format_indent_increase</i>
                 </a>
               </li>
