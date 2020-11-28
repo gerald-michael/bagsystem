@@ -7,7 +7,6 @@
     <div class="col s12 m4"> 
         <div class="card-panel">
             <h4 class="header2">New Stock</h4>
-            <br/>
             <form action="createstock" method="post">
                 <div class="input-field">
                     <select class="icons" name="productName">

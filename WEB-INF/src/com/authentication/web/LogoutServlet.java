@@ -1,4 +1,4 @@
-package com.authentication.login.web;
+package com.authentication.web;
 
 import com.authentication.bean.User;
 import com.authentication.dao.*;

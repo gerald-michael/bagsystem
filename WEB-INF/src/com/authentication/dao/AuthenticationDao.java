@@ -52,6 +52,20 @@ public class AuthenticationDao {
     public static final String COLUMN_USER_GROUPS_USER_ID = "user_id";
     public static final String COLUMN_USER_GROUPS_GROUPS_ID = "group_id";
 
+    // user groups view
+    public static final String VIEW_USER_GROUPS = "user_groups_view";
+    public static final String COLUMN_VIEW_USER_GROUPS_GROUP_ID = "group_id";
+    public static final String COLUMN_VIEW_USER_GROUPS_USER_ID = "user_id";
+    public static final String COLUMN_VIEW_USER_GROUPS_GROUP_NAME = "name";
+    public static final String COLUMN_VIEW_USER_GROUPS_USERNAME = "username";
+
+    // group permission view
+    public static final String VIEW_GROUP_PERMISSION = "group_permission_view";
+    public static final String COLUMN_VIEW_GROUP_PERMISSION_GROUP_ID = "group_id";
+    public static final String COLUMN_VIEW_GROUP_PERMISSION_PERMISSION_ID = "permission_id";
+    public static final String COLUMN_VIEW_GROUP_PERMISSION_GROUP_NAME = "groups_name";
+    public static final String COLUMN_VIEW_GROUP_PERMISSION_PERMISSION_NAME = "permission_name";
+
     // sort order
 
     public static final int ORDER_BY_NONE = 1;
@@ -86,13 +100,16 @@ public class AuthenticationDao {
     public static final String CHECK_IF_PERMISSIONS_TO_GROUPS_EXISTS = "SELECT * FROM " + TABLE_GROUPS_PERMISSIONS
             + " WHERE " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID
             + " = ?";
-    public static final String DELETE_USER_GROUP = "DELETE FROM " + TABLE_USER_GROUPS + " WHERE "
-            + COLUMN_USER_GROUPS_ID + " = ?";
-    public static final String DELETE_PERMISSION_TO_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE "
-            + COLUMN_GROUPS_PERMISSIONS_ID + " = ?";
     public static final String GET_USER = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_USERNAME + "=?";
     public static final String GET_USER_WITH_ID = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_ID + "=?";
     public static final String GET_USERS = "SELECT * FROM " + TABLE_USERS;
+    public static final String GET_PERMISSIONS = "SELECT * FROM " + TABLE_PERMISSIONS;
+    public static final String GET_GROUPS = "SELECT * FROM `" + TABLE_GROUPS + "`";
+    public static final String GET_USER_GROUP = "SELECT * FROM " + VIEW_USER_GROUPS;
+    public static final String GET_PERMISSION_GROUP = "SELECT * FROM " + VIEW_GROUP_PERMISSION;
+    public static final String REMOVE_USER_FROM_GROUP = "DELETE FROM " + TABLE_USER_GROUPS + " WHERE " + COLUMN_USER_GROUPS_USER_ID + "=? AND " + COLUMN_USER_GROUPS_GROUPS_ID + "=?";
+    public static final String REMOVE_PERMISSION_FROM_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE " + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =?";
+    public static final String DELETE_GROUP = "DELETE FROM `" + TABLE_GROUPS + "` WHERE " + COLUMN_GROUPS_NAME + " =?";
     private Connection conn;
 
     public boolean open() throws SQLException, ClassNotFoundException {
@@ -347,32 +364,47 @@ public class AuthenticationDao {
             return -1;
         }
     }
-
-    public boolean deleteUserGroupFunc(UserGroups userGroups) {
-        try {
+    public boolean deleteGroup(Group group){
+        try{
             open();
-            PreparedStatement deleteUserGroup = conn.prepareStatement(DELETE_USER_GROUP);
-            deleteUserGroup.setInt(1, userGroups.getId());
-            int affectedRows = deleteUserGroup.executeUpdate();
+            PreparedStatement statement = conn.prepareStatement(DELETE_GROUP);
+            statement.setString(1,group.getName());
+            int affectedRows = statement.executeUpdate();
             close();
-            return affectedRows == 1;
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            return affectedRows ==1;
+        }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
             close();
             return false;
         }
     }
 
-    public boolean deleteGroupPermissions(GroupPermissions groupPermissions) {
+    public boolean removeUserFromGroup(UserGroups userGroups) {
         try {
             open();
-            PreparedStatement deleteGroupPermissions = conn.prepareStatement(DELETE_PERMISSION_TO_GROUP);
-            deleteGroupPermissions.setInt(1, groupPermissions.getId());
-            int affectedRows = deleteGroupPermissions.executeUpdate();
+            PreparedStatement statement = conn.prepareStatement(REMOVE_USER_FROM_GROUP);
+            statement.setInt(1,userGroups.getUserId());
+            statement.setInt(2,userGroups.getGroupId());
+            int affectedRows = statement.executeUpdate();
             close();
             return affectedRows == 1;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean removePermissionFromGroup(GroupPermissions groupPermissions){
+        try {
+            open();
+            PreparedStatement statement = conn.prepareStatement(REMOVE_PERMISSION_FROM_GROUP);
+            statement.setInt(1,groupPermissions.getGroupId());
+            statement.setInt(2 ,groupPermissions.getPermissionId());
+            int affectedRows = statement.executeUpdate();
+            close();
+            return affectedRows == 1;
+        }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
             close();
             return false;
         }
@@ -387,6 +419,44 @@ public class AuthenticationDao {
         permission.setName("all");
         permission.setCreatedBy(1);
         int permissionId = this.createPermission(permission);
+        permission.setName("addProducts");
+        permissionId = this.createPermission(permission);
+        permission.setName("updateProducts");
+        permissionId = this.createPermission(permission);
+        permission.setName("viewProducts");
+        permissionId = this.createPermission(permission);
+        permission.setName("deleteProducts");
+        permissionId = this.createPermission(permission);
+        permission.setName("addStock");
+        permissionId = this.createPermission(permission);
+        permission.setName("updateStock");
+        permissionId = this.createPermission(permission);
+        permission.setName("viewStock");
+        permissionId = this.createPermission(permission);
+        permission.setName("deleteStock");
+        permissionId = this.createPermission(permission);
+        permission.setName("addTransaction");
+        permissionId = this.createPermission(permission);
+        permission.setName("updateTransaction");
+        permissionId = this.createPermission(permission);
+        permission.setName("viewTransaction");
+        permissionId = this.createPermission(permission);
+        permission.setName("deleteTransaction");
+        permissionId = this.createPermission(permission);
+        permission.setName("addDelete");
+        permissionId = this.createPermission(permission);
+        permission.setName("viewGroups");
+        permissionId = this.createPermission(permission);
+        permission.setName("deleteGroups");
+        permissionId = this.createPermission(permission);
+        permission.setName("viewPermissions");
+        permissionId = this.createPermission(permission);
+        permission.setName("viewUsers");
+        permissionId = this.createPermission(permission);
+        permission.setName("assignPermission");
+        permissionId = this.createPermission(permission);
+        permission.setName("assignGroups");
+        permissionId = this.createPermission(permission);
         UserGroups userGroups = new UserGroups();
         userGroups.setGroupId(groupId);
         userGroups.setUserId(1);
@@ -410,6 +480,7 @@ public class AuthenticationDao {
                 user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
                 user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
             }
+            close();
             return user;
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
@@ -432,6 +503,7 @@ public class AuthenticationDao {
                 user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
                 user.setProfileImage(results.getString(COLUMN_USERS_PROFILE_IMAGE));
             }
+            close();
             return user;
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
@@ -449,6 +521,7 @@ public class AuthenticationDao {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             while (results.next()) {
                 User user = new User();
+                user.setId(results.getInt(COLUMN_USERS_ID));
                 user.setUsername(results.getString(COLUMN_USERS_USERNAME));
                 user.setLastName(results.getString(COLUMN_USERS_LAST_NAME));
                 user.setFirstName(results.getString(COLUMN_USERS_FIRST_NAME));
@@ -459,7 +532,108 @@ public class AuthenticationDao {
                 }
                 users.add(user);
             }
+            close();
             return users;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+
+    public List<Group> getGroups() {
+        try {
+            open();
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(GET_GROUPS);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            List<Group> groups = new ArrayList<>();
+            while (results.next()) {
+                Group group = new Group();
+                group.setId(results.getInt(COLUMN_GROUPS_ID));
+                group.setCreatedBy(results.getInt(COLUMN_GROUPS_CREATED_BY));
+                group.setName(results.getString(COLUMN_GROUPS_NAME));
+                group.setDateCreated(format.parse(results.getString(COLUMN_GROUPS_DATE_CREATED)));
+                if (results.getString(COLUMN_GROUPS_DATE_UPDATED) != null) {
+                    group.setDateUpdated(format.parse(results.getString(COLUMN_GROUPS_DATE_UPDATED)));
+                }
+                groups.add(group);
+            }
+            close();
+            return groups;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+
+    public List<Permission> getPermissions() {
+        try {
+            open();
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(GET_PERMISSIONS);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            List<Permission> permissions = new ArrayList<>();
+            while (results.next()) {
+                Permission permission = new Permission();
+                permission.setId(results.getInt(COLUMN_PERMISSIONS_ID));
+                permission.setCreatedBy(results.getInt(COLUMN_PERMISSIONS_CREATED_BY));
+                permission.setName(results.getString(COLUMN_PERMISSIONS_NAME));
+                permission.setDateCreated(format.parse(results.getString(COLUMN_PERMISSIONS_DATE_CREATED)));
+                if (results.getString(COLUMN_PERMISSIONS_DATE_UPDATED) != null) {
+                    permission.setDateUpdated(format.parse(results.getString(COLUMN_PERMISSIONS_DATE_UPDATED)));
+                }
+                permissions.add(permission);
+            }
+            close();
+            return permissions;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+
+    public List<UserGroups> getUserGroups() {
+        try {
+            open();
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(GET_USER_GROUP);
+            List<UserGroups> userGroups = new ArrayList<>();
+            while (results.next()) {
+                UserGroups userGroup = new UserGroups();
+                userGroup.setUserId(results.getInt(COLUMN_VIEW_USER_GROUPS_USER_ID));
+                userGroup.setGroupId(results.getInt(COLUMN_VIEW_USER_GROUPS_GROUP_ID));
+                userGroup.setGroupName(results.getString(COLUMN_VIEW_USER_GROUPS_GROUP_NAME));
+                userGroup.setUsername(results.getString(COLUMN_VIEW_USER_GROUPS_USERNAME));
+                userGroups.add(userGroup);
+            }
+            close();
+            return userGroups;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+
+    public List<GroupPermissions> getGroupsPermission() {
+        try {
+            open();
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery(GET_PERMISSION_GROUP);
+            List<GroupPermissions> groupPermissions = new ArrayList<>();
+            while (results.next()) {
+                GroupPermissions groupPermission = new GroupPermissions();
+                groupPermission.setPermissionId(results.getInt(COLUMN_VIEW_GROUP_PERMISSION_PERMISSION_ID));
+                groupPermission.setGroupId(results.getInt(COLUMN_VIEW_GROUP_PERMISSION_GROUP_ID));
+                groupPermission.setGroupName(results.getString(COLUMN_VIEW_GROUP_PERMISSION_GROUP_NAME));
+                groupPermission.setPermissionName(results.getString(COLUMN_VIEW_GROUP_PERMISSION_PERMISSION_NAME));
+                groupPermissions.add(groupPermission);
+            }
+            close();
+            return groupPermissions;
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
             close();

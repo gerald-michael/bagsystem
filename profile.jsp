@@ -45,20 +45,23 @@
         </div>
     </div>
     <div id="modal1" class="modal">
-        <form method="post" action="updateUser">
+        <form method="post" action="updateUser" enctype = "multipart/form-data">
             <div class="modal-content">
             <h4>Update user</h4>
+                <div class="input-field file-field">
+                    <div class="btn blue">
+                        <i class="material-icons">attach_file</i>
+                        <input type="file" name="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input type="text" class="file-path validate" placeholder="Profile image">
+                    </div>
+                </div>
                 <div class="input-field">
                     <label for="first">First Name</label><input type="text" name="firstName" id="first">
                 </div>
                 <div class="input-field">
                     <label for="last">Last Name</label><input type="text" name="lastName" id="last">
-                </div>
-                <div class="input-field">
-                    <label for="password">Password</label><input type="password" name="password" id="password">
-                </div>
-                <div class="input-field">
-                    <label for="confirm">Confirm Password</label><input type="password" name="confirm" id="confirm">
                 </div>
             </div>
             <div class="modal-footer">
@@ -67,38 +70,6 @@
                 </button>
             </div>
         </form>
-    </div>
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">Groups and permissions</span>
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Item Name</th>
-                    <th>Item Price</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>Jellybean</td>
-                    <td>$3.76</td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>Lollipop</td>
-                    <td>$7.00</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
 </div>
