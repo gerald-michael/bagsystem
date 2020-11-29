@@ -4,7 +4,9 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-
+  <error-page>
+    <location>/error.jsp</location>
+  </error-page>
   <servlet>
     <servlet-name>ServletContext</servlet-name>
     <servlet-class>com.gerald.ServletContextLocal</servlet-class>
@@ -46,6 +48,45 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <filter>
+    <filter-name>ManageFilter</filter-name>
+    <filter-class>com.authentication.filters.ManageFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>ManageFilter</filter-name>
+    <url-pattern>/manage.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>ProductFilter</filter-name>
+    <filter-class>com.authentication.filters.ProductsFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>ProductFilter</filter-name>
+    <url-pattern>/product.jsp</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>StockFilter</filter-name>
+    <filter-class>com.authentication.filters.StockFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>StockFilter</filter-name>
+    <url-pattern>/stock.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>TransactionFilter</filter-name>
+    <filter-class>com.authentication.filters.TransactionFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>TransactionFilter</filter-name>
+    <url-pattern>/transactions.jsp</url-pattern>
+  </filter-mapping>
   <context-param>
     <description>Location to store uploaded file</description>
     <param-name>file-upload</param-name>

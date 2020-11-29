@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html" errorPage="error.jsp"  %>
-<%@ page import="com.products.dao.ProductDao,com.products.bean.Product,java.util.List,java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="nav.jsp" %>
 <%@ include file="sidebar.jsp"%>
@@ -60,5 +59,34 @@
         </form>
     </div>
 </div>
+</div>
+<div class="row">
+    <div class="col s12"> 
+        <div class="card-panel">
+            <h4 class="header2">User Groups And Permissions</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Permission Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        List<UserGroupPermission> userGroupPermissions = new ArrayList<>();
+                        UserGroupPermission userGroupPermission = new UserGroupPermission();
+                        userGroupPermission.setUsername(userx.getUsername());
+                        userGroupPermissions = authenticationDao.queryUserGroupPermissionView(userGroupPermission);
+                        for(UserGroupPermission user_group_permission: userGroupPermissions){
+                            out.println("<tr>");
+                            out.println("<td>"+user_group_permission.getGroupName()+ "</td>");
+                            out.println("<td>"+user_group_permission.getPermissionName()+ "</td>");
+                            out.println("</tr>");
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <%@ include file="footer.jsp" %>

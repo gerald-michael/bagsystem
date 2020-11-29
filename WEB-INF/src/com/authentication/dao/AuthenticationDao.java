@@ -66,6 +66,12 @@ public class AuthenticationDao {
     public static final String COLUMN_VIEW_GROUP_PERMISSION_GROUP_NAME = "group_name";
     public static final String COLUMN_VIEW_GROUP_PERMISSION_PERMISSION_NAME = "permission_name";
 
+    // user group permission view
+    public static final String VIEW_USER_GROUP_PERMISSION = "user_group_permission_view";
+    public static final String COLUMN_VIEW_USER_GROUP_PERMISSION_USERNAME = "username";
+    public static final String COLUMN_VIEW_USER_GROUP_PERMISSION_GROUP_NAME = "group_name";
+    public static final String COLUMN_VIEW_USER_GROUP_PERMISSION_PERMISSION_NAME = "permission_name";
+
     // sort order
 
     public static final int ORDER_BY_NONE = 1;
@@ -112,6 +118,8 @@ public class AuthenticationDao {
     public static final String REMOVE_PERMISSION_FROM_GROUP = "DELETE FROM " + TABLE_GROUPS_PERMISSIONS + " WHERE "
             + COLUMN_GROUPS_PERMISSIONS_GROUPS_ID + " =? AND " + COLUMN_GROUPS_PERMISSIONS_PERMISSIONS_ID + " =?";
     public static final String DELETE_GROUP = "DELETE FROM `" + TABLE_GROUPS + "` WHERE " + COLUMN_GROUPS_NAME + " =?";
+    public static final String QUERY_VIEW_USER_GROUP_PERMISSION = "SELECT * FROM " + VIEW_USER_GROUP_PERMISSION
+            + " WHERE " + COLUMN_VIEW_USER_GROUP_PERMISSION_USERNAME + " =?";
     private Connection conn;
 
     public boolean open() throws SQLException, ClassNotFoundException {
@@ -639,6 +647,28 @@ public class AuthenticationDao {
             }
             close();
             return groupPermissions;
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+            close();
+            return null;
+        }
+    }
+
+    public List<UserGroupPermission> queryUserGroupPermissionView(UserGroupPermission userGroupPermission) {
+        try {
+            open();
+            PreparedStatement statement = conn.prepareStatement(QUERY_VIEW_USER_GROUP_PERMISSION);
+            statement.setString(1, userGroupPermission.getUsername());
+            ResultSet results = statement.executeQuery();
+            List<UserGroupPermission> userGroupPermissions = new ArrayList<>();
+            while (results.next()) {
+                UserGroupPermission permission = new UserGroupPermission();
+                permission.setGroupName(results.getString(COLUMN_VIEW_USER_GROUP_PERMISSION_GROUP_NAME));
+                permission.setPermissionName(results.getString(COLUMN_VIEW_USER_GROUP_PERMISSION_PERMISSION_NAME));
+                permission.setUsername(results.getString(COLUMN_VIEW_USER_GROUP_PERMISSION_USERNAME));
+                userGroupPermissions.add(permission);
+            }
+            return userGroupPermissions;
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
             close();

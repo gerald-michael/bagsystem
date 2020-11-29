@@ -107,3 +107,4 @@ create view user_groups_view as select users.username, `groups`.name , user_grou
 create view group_permission_view as select groups.name as group_name, permissions.name as permission_name, groups_permissions.group
 n `groups` on groups_permissions.group_id = `groups`.id inner join permissions on groups_permissions.perm
 ission_id = permissions.id;
+create view user_group_permission_view as select permissions.name as permission_name, users.username, `groups`.name as group_name from groups_permissions inner join permissions on groups_permissions.permission_id = permissions.id inner join `groups` on `groups`.id = groups_permissions.group_id inner join user_groups on user_groups.group_id = `groups`.id inner join users on users.id = user_groups.user_id;
