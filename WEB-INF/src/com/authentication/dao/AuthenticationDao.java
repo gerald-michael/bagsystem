@@ -426,7 +426,8 @@ public class AuthenticationDao {
         Permission permission = new Permission();
         permission.setName("all");
         permission.setCreatedBy(1);
-        int permissionId = this.createPermission(permission);
+        int permissionIdAll = this.createPermission(permission);
+        int permissionId;
         permission.setName("addProducts");
         permissionId = this.createPermission(permission);
         permission.setName("updateProducts");
@@ -470,7 +471,7 @@ public class AuthenticationDao {
         userGroups.setUserId(1);
         int user_group_id = this.assignUsersToGroups(userGroups);
         GroupPermissions groupPermissions = new GroupPermissions();
-        groupPermissions.setPermissionId(permissionId);
+        groupPermissions.setPermissionId(permissionIdAll);
         groupPermissions.setGroupId(groupId);
         int group_permission_id = this.assignPermissionsToGroups(groupPermissions);
     }

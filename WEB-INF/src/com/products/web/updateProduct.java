@@ -6,7 +6,6 @@ import java.util.*;
 import java.io.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,6 @@ import com.authentication.dao.AuthenticationDao;
 import com.products.bean.*;
 import com.products.dao.*;
 
-@WebServlet("/updateProduct")
 public class updateProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

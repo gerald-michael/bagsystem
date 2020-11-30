@@ -6,7 +6,6 @@ import java.util.*;
 import java.io.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,6 @@ import com.authentication.dao.AuthenticationDao;
 import com.products.bean.*;
 import com.products.dao.*;
 
-@WebServlet("/create")
 public class ProductCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -86,7 +84,8 @@ public class ProductCreateServlet extends HttpServlet {
                         }
                     }
                 }
-                out.println(product.getAdded_by() + product.getDescription() + product.getName() + product.getImageUri());
+                out.println(
+                        product.getAdded_by() + product.getDescription() + product.getName() + product.getImageUri());
                 int id = productDao.createProduct(product);
                 if (id != -1) {
                     response.sendRedirect("product.jsp?message=" + "product created successfully");
@@ -98,6 +97,7 @@ public class ProductCreateServlet extends HttpServlet {
             }
         }
     }
+
     private String createFileName() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();

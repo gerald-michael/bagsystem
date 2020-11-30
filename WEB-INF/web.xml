@@ -4,9 +4,9 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <error-page>
+  <!-- <error-page>
     <location>/error.jsp</location>
-  </error-page>
+  </error-page> -->
   <servlet>
     <servlet-name>ServletContext</servlet-name>
     <servlet-class>com.gerald.ServletContextLocal</servlet-class>
@@ -108,4 +108,67 @@
       /opt/tomcat/latest/webapps/portal/profile/
     </param-value>
   </context-param>
+
+  <!-- Product servlets -->
+  <servlet>
+    <servlet-name>CreateProducts</servlet-name>
+    <servlet-class>com.products.web.ProductCreateServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+      <servlet-name>CreateProducts</servlet-name>
+      <url-pattern>/create</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>DeleteProducts</servlet-name>
+    <servlet-class>com.products.web.DeleteProduct</servlet-class>
+  </servlet>
+    <servlet-mapping>
+      <servlet-name>DeleteProducts</servlet-name>
+      <url-pattern>/deleteProduct</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UpdateProducts</servlet-name>
+    <servlet-class>com.products.web.updateProduct</servlet-class>
+  </servlet>
+    <servlet-mapping>
+      <servlet-name>UpdateProducts</servlet-name>
+      <url-pattern>/updateProduct</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteTransaction</servlet-name>
+    <servlet-class>com.products.web.DeleteTransaction</servlet-class>
+  </servlet>
+    <servlet-mapping>
+      <servlet-name>DeleteTransaction</servlet-name>
+      <url-pattern>/deleteTransaction</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>TransactionCreateServlet</servlet-name>
+    <servlet-class>com.products.web.TransactionCreateServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+      <servlet-name>TransactionCreateServlet</servlet-name>
+      <url-pattern>/createtransaction</url-pattern>
+  </servlet-mapping>
+    <servlet>
+      <servlet-name>DeleteStock</servlet-name>
+      <servlet-class>com.products.web.DeleteStock</servlet-class>
+    </servlet>
+      <servlet-mapping>
+        <servlet-name>DeleteStock</servlet-name>
+        <url-pattern>/deleteStock</url-pattern>
+    </servlet-mapping>
+  <servlet>
+    <servlet-name>StockCreateServlet</servlet-name>
+    <servlet-class>com.products.web.StockCreateServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+      <servlet-name>StockCreateServlet</servlet-name>
+      <url-pattern>/createstock</url-pattern>
+  </servlet-mapping>
 </web-app>

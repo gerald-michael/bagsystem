@@ -20,8 +20,8 @@
                     <select class="icons" name="permissionId">
                          <option value="" disabled selected>Choose Permission</option>
                         <%
-                            List <Permission> permissions = authenticationDao.getPermissions();
-                            for(Permission permission:permissions){
+                            List <Permission> permissionsx = authenticationDao.getPermissions();
+                            for(Permission permission:permissionsx){
                                 out.println("<option value="+permission.getId()+" class='left'>"+permission.getName()+"</option>");
                             }
                         %>
@@ -48,8 +48,8 @@
                 </thead>
                     <%
                         List<Permission> permissionss = new ArrayList<>();
-                        permissions = authenticationDao.getPermissions();
-                        for(Permission permission: permissions){
+                        permissionss = authenticationDao.getPermissions();
+                        for(Permission permission: permissionss){
                             out.println("<tr>");
                             out.println("<td>"+permission.getName()+ "</td>");
                             out.println("</tr>");

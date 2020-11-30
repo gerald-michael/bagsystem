@@ -6,7 +6,6 @@ import java.util.List;
 import java.io.File;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +17,6 @@ import com.authentication.bean.User;
 import com.authentication.dao.AuthenticationDao;
 import com.products.bean.*;
 import com.products.dao.*;
-
-@WebServlet("/deleteStock")
 
 public class DeleteStock extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
