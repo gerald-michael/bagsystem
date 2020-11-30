@@ -107,6 +107,21 @@ public class ProductDao {
     public static final String DELETE_STOCK = "DELETE FROM " + TABLE_STOCK + " WHERE " + COLUMN_STOCK_ID + "=?";
     public static final String DELETE_TRANSACTION = " DELETE FROM " + TABLE_TRANSACTIONS + " WHERE "
             + COLUMN_TRANSACTION_ID + " =?";
+    public static final int TOTAL_TRANSACTIONS = " SELECT COUNT(*) FROM" + TABLE_TRANSACTIONS + " =?";
+    public static final int TOTAL_PRODUCTS = " SELECT COUNT(*) FROM" + TABLE_TRANSACTIONS + " =?";
+    public static final int TOTAL_STOCK = " SELECT COUNT(*) FROM" + TABLE_TRANSACTIONS + " =?";
+    public static final int JAN_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 1 =?";
+    public static final int MAR_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 3 =?";
+    public static final int MAY_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + " WHERE MONTH(happened_at) = 5 =?";
+    public static final int JUL_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 7 =?";
+    public static final int SEP_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + " WHERE MONTH(happened_at) = 9 =?";
+    public static final int NOV_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + " WHERE MONTH(happened_at) = 11 =?";
+    public static final int JAN_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + "  WHERE MONTH(happened_at) = 1 =?";
+    public static final int FEB_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 2 =?";
+    public static final int MAR_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 3 =?";
+    public static final int APR_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 4 =?";
+    public static final int MAY_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 5 =?";
+    public static final int JUN_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 6 =?";
 
     private Connection conn;
     // prepared statements for products

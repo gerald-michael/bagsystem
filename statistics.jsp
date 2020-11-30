@@ -51,9 +51,52 @@
               </div>
 
             </div>
+            <script>
+            let JAN =+"  <%
+            JAN_STOCK
+            %>";
+              let FEB =+"  <%
+            FEB_STOCK
+            %>";
+              let MAR =+"  <%
+            MAR_STOCK
+            %>";
+              let MAY =+"  <%
+            MAY_STOCK
+            %>";
+              let JUL =+"  <%
+            JUL_STOCK
+            %>";
+              let AUG =+"  <%
+            AUG_STOCK
+            %>";
+              let Jan =+"  <%
+            JAN_PRODUCT
+            %>";
+              let Feb =+"  <%
+            FEB_PRODUCT
+            %>";
+             let Mar =+"  <%
+            MAR_PRODUCT
+            %>";
+            
+             let Apr =+"  <%
+            APR_PRODUCT
+            %>";
+            
+             let May=+"  <%
+            MAY_PRODUCT
+            %>";
+            
+             let Jun =+"  <%
+            JUN_PRODUCT
+            %>";
+            
+            </script>
+          
 
             <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-5">
+            <%-- <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
@@ -69,7 +112,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --%>
 
         </div>
         <!-- /.container-fluid -->
@@ -83,30 +126,6 @@
 
   </div>
   <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <!-- Custom scripts for all pages-->
