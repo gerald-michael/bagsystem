@@ -111,11 +111,17 @@ public class ProductDao {
     public static final int TOTAL_PRODUCTS = " SELECT COUNT(*) FROM" + TABLE_TRANSACTIONS + " =?";
     public static final int TOTAL_STOCK = " SELECT COUNT(*) FROM" + TABLE_TRANSACTIONS + " =?";
     public static final int JAN_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 1 =?";
+    public static final int FEB_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 2 =?";
     public static final int MAR_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 3 =?";
+    public static final int APR_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 4 =?";
     public static final int MAY_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + " WHERE MONTH(happened_at) = 5 =?";
+    public static final int JUN_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 6 =?";
     public static final int JUL_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 7 =?";
+    public static final int AUG_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 8 =?";
     public static final int SEP_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + " WHERE MONTH(happened_at) = 9 =?";
+    public static final int OCT_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 10 =?";
     public static final int NOV_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + " WHERE MONTH(happened_at) = 11 =?";
+    public static final int DEC_STOCK = " SELECT COUNT(*) FROM" + TABLE_STOCK + "WHERE MONTH(happened_at) = 12 =?";
     public static final int JAN_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + "  WHERE MONTH(happened_at) = 1 =?";
     public static final int FEB_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 2 =?";
     public static final int MAR_PRODUCT = " SELECT COUNT(*) FROM" + TABLE_PRODUCTS + " WHERE MONTH(happened_at) = 3 =?";
