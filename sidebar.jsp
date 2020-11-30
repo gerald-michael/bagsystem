@@ -32,6 +32,5 @@
         }
     %>   
     <li><a href="statistics.jsp"><i class="material-icons">graphic_eq</i>statistics</a></li>
-    <li><a href="reports.jsp"><i class="material-icons">report</i>reports</a></li>
   </ul>
         
