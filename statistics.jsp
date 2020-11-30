@@ -61,14 +61,29 @@
               let MAR =+"  <%
             MAR_STOCK
             %>";
+            let APR =+"  <%
+            APR_STOCK
+            %>";
               let MAY =+"  <%
             MAY_STOCK
+            %>";
+            let JUN =+"  <%
+            JUN_STOCK
             %>";
               let JUL =+"  <%
             JUL_STOCK
             %>";
               let AUG =+"  <%
             AUG_STOCK
+            %>";
+            let SEP =+"  <%
+            SEP_STOCK
+            %>";let OCT =+"  <%
+            OCT_STOCK
+            %>";let NOV =+"  <%
+            NOV_STOCK
+            %>";let DEC =+"  <%
+            DEC_STOCK
             %>";
               let Jan =+"  <%
             JAN_PRODUCT
